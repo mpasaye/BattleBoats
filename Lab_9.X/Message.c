@@ -6,11 +6,16 @@
 
 // Standard Libraries
 #include <stdio.h>
+#include <string.h>
 
 // CSE13E Libraries
+#include "BOARD.h"
 
 // BattleBoat Libraries
 #include "Message.h"
+
+// Define Block
+#define CHECKSUMSIZE 2 // Accounts for both characters
 
 // Function Block
 
@@ -24,4 +29,12 @@ uint8_t Message_CalculateChecksum(const char* payload)
     }
     
     return checkSum;
+}
+
+int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Event * message_event)
+{
+    if (strlen(checksum_string) > CHECKSUMSIZE) {
+        return STANDARD_ERROR;
+    }
+    return SUCCESS;
 }

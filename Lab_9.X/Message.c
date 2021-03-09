@@ -33,8 +33,17 @@ uint8_t Message_CalculateChecksum(const char* payload)
 
 int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Event * message_event)
 {
-    if (strlen(checksum_string) > CHECKSUMSIZE) {
+    char outCheckSumStr[CHECKSUMSIZE];
+    
+    if (strlen(checksum_string) > CHECKSUMSIZE) {   // Makes sure that the checksum string is not greater than 2 characters
         return STANDARD_ERROR;
+    }
+    sprintf(outCheckSumStr, "%x", Message_CalculateChecksum(payload));  // Calculates the actual checksum, and converts to str for comparison with passed checksum
+    
+    if (strcmp(checksum_string, outCheckSumStr)) {
+        printf("strings are not equal\n");
+    } else {
+        printf("Strsings are equal\n");
     }
     return SUCCESS;
 }

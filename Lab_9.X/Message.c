@@ -142,6 +142,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
             if (!atoi(tok)) {
                     return STANDARD_ERROR;
                 }
+            
             param[i++] = atoi(tok);
             message_event -> type = BB_EVENT_REV_RECEIVED;
             message_event -> param0 = param[0];
@@ -154,7 +155,6 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
             }
             
             tok = strtok(arg, ",");
-            //param[i++] = atoi(tok);
             while (tok != NULL) {
                 if (!atoi(tok)) {
                     return STANDARD_ERROR;
@@ -162,6 +162,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
                 param[i++] = atoi(tok);
                 tok = strtok(NULL, ",");
             }
+            
             message_event -> type = BB_EVENT_SHO_RECEIVED;
             message_event -> param0 = param[0];
             message_event -> param1 = param[1];
@@ -174,14 +175,14 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
             }
             
             tok = strtok(arg, ",");
-            param[i++] = atoi(tok);
             while (tok != NULL) {
                 if (!atoi(tok)) {
                     return STANDARD_ERROR;
                 }
-                tok = strtok(NULL, ",");
                 param[i++] = atoi(tok);
+                tok = strtok(NULL, ",");
             }
+            
             message_event -> type = BB_EVENT_SHO_RECEIVED;
             message_event -> param0 = param[0];
             message_event -> param1 = param[1];
@@ -189,5 +190,44 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
             break;
     }
 
+    return SUCCESS;
+}
+
+int Message_Encode(char *message_string, Message message_to_encode)
+{
+    char payload[MESSAGE_MAX_PAYLOAD_LEN];
+    uint8_t checkSum;
+    
+    switch (message_to_encode.type) {
+        case MESSAGE_NONE:
+            break;
+        case MESSAGE_ERROR:
+            break;
+        case MESSAGE_CHA:
+            sprintf(payload, PAYLOAD_TEMPLATE_CHA, message_to_encode.param0);
+            checkSum = Message_CalculateChecksum(payload);
+            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+            break;
+        case MESSAGE_ACC:
+            sprintf(payload, PAYLOAD_TEMPLATE_ACC, message_to_encode.param0);
+            checkSum = Message_CalculateChecksum(payload);
+            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+            break;
+        case MESSAGE_REV:
+            sprintf(payload, PAYLOAD_TEMPLATE_REV, message_to_encode.param0);
+            checkSum = Message_CalculateChecksum(payload);
+            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+            break;
+        case MESSAGE_SHO:
+            sprintf(payload, PAYLOAD_TEMPLATE_SHO, message_to_encode.param0, message_to_encode.param1);
+            checkSum = Message_CalculateChecksum(payload);
+            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+            break;
+        case MESSAGE_RES:
+            sprintf(payload, PAYLOAD_TEMPLATE_RES, message_to_encode.param0, message_to_encode.param1, message_to_encode.param2);
+            checkSum = Message_CalculateChecksum(payload);
+            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+            break;
+    }
     return SUCCESS;
 }

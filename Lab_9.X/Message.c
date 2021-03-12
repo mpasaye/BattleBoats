@@ -200,8 +200,10 @@ int Message_Encode(char *message_string, Message message_to_encode)
     
     switch (message_to_encode.type) {
         case MESSAGE_NONE:
+            return MESSAGE_NONE;
             break;
         case MESSAGE_ERROR:
+            return MESSAGE_ERROR;
             break;
         case MESSAGE_CHA:
             sprintf(payload, PAYLOAD_TEMPLATE_CHA, message_to_encode.param0);
@@ -229,5 +231,5 @@ int Message_Encode(char *message_string, Message message_to_encode)
             sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
             break;
     }
-    return SUCCESS;
+    return strlen(message_string);
 }

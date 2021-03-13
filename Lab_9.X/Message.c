@@ -22,13 +22,17 @@
 #define SINGLEPARAM 2 // Message types that only have one argument
 #define DOUBLEPARAM 4 // Message types that have two arguments
 #define TRIPLEPARAM 6 // Message type that have three arguments
-
+#define ASCIIZERO 48
+#define ASCIININE 57
+#define ASCIIA 65
+#define ASCIIF 70
 // TypeDef Block
 
 typedef enum {
     DECODE_WAITING,
     DECODE_PAYLOAD,
-    DECODE_CHECKSUM
+    DECODE_CHECKSUM,
+    DECODE_END
 } DecodeState;
 
 // Function Block
@@ -104,99 +108,99 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
     i = 0; // Reinitialize i to zero to be used with param[] array
 
     switch (messageID) {
-        case MESSAGE_ERROR:
-            printf("message error\n");
-            break;
-        case MESSAGE_NONE:
-            printf("no message event\n");
-            break;
-        case MESSAGE_CHA:
-            printf("CHA RECEIVED\n");
-            if (strlen(arg) != SINGLEPARAM) {
-                printf("INVALID ARGUMENTS\n");
-                return STANDARD_ERROR;
-            }
+    case MESSAGE_ERROR:
+        printf("message error\n");
+        break;
+    case MESSAGE_NONE:
+        printf("no message event\n");
+        break;
+    case MESSAGE_CHA:
+        printf("CHA RECEIVED\n");
+        if (strlen(arg) != SINGLEPARAM) {
+            printf("INVALID ARGUMENTS\n");
+            return STANDARD_ERROR;
+        }
 
-            tok = strtok(arg, ",");
+        tok = strtok(arg, ",");
+        if (!atoi(tok)) {
+            return STANDARD_ERROR;
+        }
+        param[i++] = atoi(tok);
+        message_event -> type = BB_EVENT_CHA_RECEIVED;
+        message_event -> param0 = param[0];
+        break;
+    case MESSAGE_ACC:
+        printf("ACC RECEIVED\n");
+        if (strlen(arg) != SINGLEPARAM) {
+            printf("INVALID ARGUMENTS\n");
+            return STANDARD_ERROR;
+        }
+
+        tok = strtok(arg, ",");
+        if (!atoi(tok)) {
+            return STANDARD_ERROR;
+        }
+        param[i++] = atoi(tok);
+        message_event -> type = BB_EVENT_ACC_RECEIVED;
+        message_event -> param0 = param[0];
+        break;
+    case MESSAGE_REV:
+        printf("REV RECEIVED\n");
+        if (strlen(arg) != SINGLEPARAM) {
+            printf("INVALID ARGUMENTS\n");
+            return STANDARD_ERROR;
+        }
+
+        tok = strtok(arg, ",");
+        if (!atoi(tok)) {
+            return STANDARD_ERROR;
+        }
+
+        param[i++] = atoi(tok);
+        message_event -> type = BB_EVENT_REV_RECEIVED;
+        message_event -> param0 = param[0];
+        break;
+    case MESSAGE_SHO:
+        printf("SHO RECEIVED\n");
+        if (strlen(arg) != DOUBLEPARAM) {
+            printf("INVALID ARGUMENTS\n");
+            return STANDARD_ERROR;
+        }
+
+        tok = strtok(arg, ",");
+        while (tok != NULL) {
             if (!atoi(tok)) {
                 return STANDARD_ERROR;
             }
             param[i++] = atoi(tok);
-            message_event -> type = BB_EVENT_CHA_RECEIVED;
-            message_event -> param0 = param[0];
-            break;
-        case MESSAGE_ACC:
-            printf("ACC RECEIVED\n");
-            if (strlen(arg) != SINGLEPARAM) {
-                printf("INVALID ARGUMENTS\n");
-                return STANDARD_ERROR;
-            }
+            tok = strtok(NULL, ",");
+        }
 
-            tok = strtok(arg, ",");
+        message_event -> type = BB_EVENT_SHO_RECEIVED;
+        message_event -> param0 = param[0];
+        message_event -> param1 = param[1];
+        break;
+    case MESSAGE_RES:
+        printf("RES RECEIVED\n");
+        if (strlen(arg) != TRIPLEPARAM) {
+            printf("INVALID ARGUMENTS\n");
+            return STANDARD_ERROR;
+        }
+
+        tok = strtok(arg, ",");
+        while (tok != NULL) {
             if (!atoi(tok)) {
                 return STANDARD_ERROR;
             }
             param[i++] = atoi(tok);
-            message_event -> type = BB_EVENT_ACC_RECEIVED;
-            message_event -> param0 = param[0];
-            break;
-        case MESSAGE_REV:
-            printf("REV RECEIVED\n");
-            if (strlen(arg) != SINGLEPARAM) {
-                printf("INVALID ARGUMENTS\n");
-                return STANDARD_ERROR;
-            }
+            tok = strtok(NULL, ",");
+        }
 
-            tok = strtok(arg, ",");
-            if (!atoi(tok)) {
-                return STANDARD_ERROR;
-            }
-
-            param[i++] = atoi(tok);
-            message_event -> type = BB_EVENT_REV_RECEIVED;
-            message_event -> param0 = param[0];
-            break;
-        case MESSAGE_SHO:
-            printf("SHO RECEIVED\n");
-            if (strlen(arg) != DOUBLEPARAM) {
-                printf("INVALID ARGUMENTS\n");
-                return STANDARD_ERROR;
-            }
-
-            tok = strtok(arg, ",");
-            while (tok != NULL) {
-                if (!atoi(tok)) {
-                    return STANDARD_ERROR;
-                }
-                param[i++] = atoi(tok);
-                tok = strtok(NULL, ",");
-            }
-
-            message_event -> type = BB_EVENT_SHO_RECEIVED;
-            message_event -> param0 = param[0];
-            message_event -> param1 = param[1];
-            break;
-        case MESSAGE_RES:
-            printf("RES RECEIVED\n");
-            if (strlen(arg) != TRIPLEPARAM) {
-                printf("INVALID ARGUMENTS\n");
-                return STANDARD_ERROR;
-            }
-
-            tok = strtok(arg, ",");
-            while (tok != NULL) {
-                if (!atoi(tok)) {
-                    return STANDARD_ERROR;
-                }
-                param[i++] = atoi(tok);
-                tok = strtok(NULL, ",");
-            }
-
-            message_event -> type = BB_EVENT_SHO_RECEIVED;
-            message_event -> param0 = param[0];
-            message_event -> param1 = param[1];
-            message_event -> param2 = param[2];
-            break;
+        message_event -> type = BB_EVENT_SHO_RECEIVED;
+        message_event -> param0 = param[0];
+        message_event -> param1 = param[1];
+        message_event -> param2 = param[2];
+        break;
     }
 
     return SUCCESS;
@@ -247,35 +251,62 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
 {
     static DecodeState decodeState = DECODE_WAITING;
     static char message[MESSAGE_MAX_LEN];
-    static int messageIndex = 0;
+    static int messageIndex = 0, checkSumLength = 0;
     printf("state: %d\n", decodeState);
     printf("message: %s\n", message);
     printf("messageIndex: %d\n", messageIndex);
-    
-    switch (decodeState) {
-        case DECODE_WAITING:
-            if (char_in == '$') {
-                printf("START DELIMITER\n");
-                message[messageIndex++] = char_in;
-                decodeState = DECODE_PAYLOAD;
-            } else {
-                decoded_message_event -> type = BB_EVENT_NO_EVENT;
-            }
-            break;
-        case DECODE_PAYLOAD:
-            printf("RECORD PAYLOAD\n");
-            if (char_in == '$' || char_in == '\n' || messageIndex + 1 > MESSAGE_MAX_PAYLOAD_LEN ) {
-                printf("UNEXPECTED DELIMETER or EXCEDDED PAYLOAD LEN\n");
-                decoded_message_event -> type = BB_EVENT_ERROR;
-                break;
-            }
 
+    switch (decodeState) {
+    case DECODE_WAITING:
+
+        if (char_in == '$') {
+            printf("START DELIMITER\n");
+            message[messageIndex++] = char_in;
+            decodeState = DECODE_PAYLOAD;
+        }
+        decoded_message_event -> type = BB_EVENT_NO_EVENT;
+        break;
+    case DECODE_PAYLOAD:
+
+        printf("RECORD PAYLOAD\n");
+        if (char_in == '$' || char_in == '\n' || (messageIndex + 1 > MESSAGE_MAX_PAYLOAD_LEN)) {
+            printf("UNEXPECTED DELIMETER or EXCEDDED PAYLOAD LEN\n");
+            decoded_message_event -> type = BB_EVENT_ERROR;
+            decodeState = DECODE_WAITING;
+        }
+        message[messageIndex++] = char_in;
+
+        if (char_in == '*') {
+            decodeState = DECODE_CHECKSUM;
+        }
+        break;
+    case DECODE_CHECKSUM:
+        printf("RECORD CHECKSUM\n");
+        printf("CHAR_IN: %c ASCII: %d\n", char_in, (int) char_in);
+        if (checkSumLength == MESSAGE_CHECKSUM_LEN) {
+            printf("INVALID CHECKSUM LEN\n");
+            decoded_message_event -> type = BB_EVENT_ERROR;
+            decodeState = DECODE_WAITING;
             break;
-        case DECODE_CHECKSUM:
-            printf("RECORD CHECKSUM\n");
+        }
+
+        // If statement makes sure that we either have a capital A-F or number from 0-9
+        if (((int) char_in >= ASCIIZERO && (int) char_in <= ASCIININE) || ((int) char_in >= ASCIIA && (int) char_in <= ASCIIF)) {
+            printf("NUMBER OR LETTER\n");
+            message[messageIndex++] = char_in;
+            checkSumLength++;
+        } else {
+            printf("INVALID CHECKSUM CHAR\n");
+            decoded_message_event -> type = BB_EVENT_ERROR;
+            decodeState = DECODE_WAITING;
             break;
+        }
+        break;
+    case DECODE_END:
+        printf("END\n");
+        break;
     }
-    
+
     if (decoded_message_event -> type == BB_EVENT_ERROR) {
         return STANDARD_ERROR;
     }

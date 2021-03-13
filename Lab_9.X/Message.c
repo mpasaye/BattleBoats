@@ -22,6 +22,15 @@
 #define SINGLEPARAM 2 // Message types that only have one argument
 #define DOUBLEPARAM 4 // Message types that have two arguments
 #define TRIPLEPARAM 6 // Message type that have three arguments
+
+// TypeDef Block
+
+typedef enum {
+    DECODE_WAITING,
+    DECODE_PAYLOAD,
+    DECODE_CHECKSUM
+} DecodeState;
+
 // Function Block
 
 uint8_t Message_CalculateChecksum(const char* payload)
@@ -52,13 +61,13 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         printf("INEQUIVALENT CHECKSUM\n");
         return STANDARD_ERROR;
     }
-    
+
     // Makes sure that we have a payload that is not an abnormal size
     if (strlen(payload) < MINPAYLOADSIZE) {
         printf("PAYLOAD INVALID SIZE\n");
         return STANDARD_ERROR;
     }
-    
+
     // Obtains the payload type and stores it in a string
     for (i = 0; i < PAYLOADTYPESIZE - 1; i++) { // Subtracting leaves room for the null terminator 
         payloadType[i] = *payload++;
@@ -92,8 +101,8 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
     uint16_t param[MAXPARAMETERS]; // Stores each tok to be passed to the message_event
     char *tok; // Stores the token after each call to strtok()
     strcpy(arg, payload);
-    i = 0;  // Reinitialize i to zero to be used with param[] array
-    
+    i = 0; // Reinitialize i to zero to be used with param[] array
+
     switch (messageID) {
         case MESSAGE_ERROR:
             printf("message error\n");
@@ -107,11 +116,11 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
                 printf("INVALID ARGUMENTS\n");
                 return STANDARD_ERROR;
             }
-            
+
             tok = strtok(arg, ",");
             if (!atoi(tok)) {
-                    return STANDARD_ERROR;
-                }
+                return STANDARD_ERROR;
+            }
             param[i++] = atoi(tok);
             message_event -> type = BB_EVENT_CHA_RECEIVED;
             message_event -> param0 = param[0];
@@ -122,11 +131,11 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
                 printf("INVALID ARGUMENTS\n");
                 return STANDARD_ERROR;
             }
-            
+
             tok = strtok(arg, ",");
             if (!atoi(tok)) {
-                    return STANDARD_ERROR;
-                }
+                return STANDARD_ERROR;
+            }
             param[i++] = atoi(tok);
             message_event -> type = BB_EVENT_ACC_RECEIVED;
             message_event -> param0 = param[0];
@@ -137,12 +146,12 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
                 printf("INVALID ARGUMENTS\n");
                 return STANDARD_ERROR;
             }
-            
+
             tok = strtok(arg, ",");
             if (!atoi(tok)) {
-                    return STANDARD_ERROR;
-                }
-            
+                return STANDARD_ERROR;
+            }
+
             param[i++] = atoi(tok);
             message_event -> type = BB_EVENT_REV_RECEIVED;
             message_event -> param0 = param[0];
@@ -153,7 +162,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
                 printf("INVALID ARGUMENTS\n");
                 return STANDARD_ERROR;
             }
-            
+
             tok = strtok(arg, ",");
             while (tok != NULL) {
                 if (!atoi(tok)) {
@@ -162,7 +171,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
                 param[i++] = atoi(tok);
                 tok = strtok(NULL, ",");
             }
-            
+
             message_event -> type = BB_EVENT_SHO_RECEIVED;
             message_event -> param0 = param[0];
             message_event -> param1 = param[1];
@@ -173,7 +182,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
                 printf("INVALID ARGUMENTS\n");
                 return STANDARD_ERROR;
             }
-            
+
             tok = strtok(arg, ",");
             while (tok != NULL) {
                 if (!atoi(tok)) {
@@ -182,7 +191,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
                 param[i++] = atoi(tok);
                 tok = strtok(NULL, ",");
             }
-            
+
             message_event -> type = BB_EVENT_SHO_RECEIVED;
             message_event -> param0 = param[0];
             message_event -> param1 = param[1];
@@ -197,39 +206,78 @@ int Message_Encode(char *message_string, Message message_to_encode)
 {
     char payload[MESSAGE_MAX_PAYLOAD_LEN];
     uint8_t checkSum;
-    
+
     switch (message_to_encode.type) {
-        case MESSAGE_NONE:
-            return MESSAGE_NONE;
-            break;
-        case MESSAGE_ERROR:
-            return MESSAGE_ERROR;
-            break;
-        case MESSAGE_CHA:
-            sprintf(payload, PAYLOAD_TEMPLATE_CHA, message_to_encode.param0);
-            checkSum = Message_CalculateChecksum(payload);
-            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
-            break;
-        case MESSAGE_ACC:
-            sprintf(payload, PAYLOAD_TEMPLATE_ACC, message_to_encode.param0);
-            checkSum = Message_CalculateChecksum(payload);
-            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
-            break;
-        case MESSAGE_REV:
-            sprintf(payload, PAYLOAD_TEMPLATE_REV, message_to_encode.param0);
-            checkSum = Message_CalculateChecksum(payload);
-            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
-            break;
-        case MESSAGE_SHO:
-            sprintf(payload, PAYLOAD_TEMPLATE_SHO, message_to_encode.param0, message_to_encode.param1);
-            checkSum = Message_CalculateChecksum(payload);
-            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
-            break;
-        case MESSAGE_RES:
-            sprintf(payload, PAYLOAD_TEMPLATE_RES, message_to_encode.param0, message_to_encode.param1, message_to_encode.param2);
-            checkSum = Message_CalculateChecksum(payload);
-            sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
-            break;
+    case MESSAGE_NONE:
+        return MESSAGE_NONE;
+        break;
+    case MESSAGE_ERROR:
+        return MESSAGE_ERROR;
+        break;
+    case MESSAGE_CHA:
+        sprintf(payload, PAYLOAD_TEMPLATE_CHA, message_to_encode.param0);
+        checkSum = Message_CalculateChecksum(payload);
+        sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+        break;
+    case MESSAGE_ACC:
+        sprintf(payload, PAYLOAD_TEMPLATE_ACC, message_to_encode.param0);
+        checkSum = Message_CalculateChecksum(payload);
+        sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+        break;
+    case MESSAGE_REV:
+        sprintf(payload, PAYLOAD_TEMPLATE_REV, message_to_encode.param0);
+        checkSum = Message_CalculateChecksum(payload);
+        sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+        break;
+    case MESSAGE_SHO:
+        sprintf(payload, PAYLOAD_TEMPLATE_SHO, message_to_encode.param0, message_to_encode.param1);
+        checkSum = Message_CalculateChecksum(payload);
+        sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+        break;
+    case MESSAGE_RES:
+        sprintf(payload, PAYLOAD_TEMPLATE_RES, message_to_encode.param0, message_to_encode.param1, message_to_encode.param2);
+        checkSum = Message_CalculateChecksum(payload);
+        sprintf(message_string, MESSAGE_TEMPLATE, payload, checkSum);
+        break;
     }
     return strlen(message_string);
+}
+
+int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
+{
+    static DecodeState decodeState = DECODE_WAITING;
+    static char message[MESSAGE_MAX_LEN];
+    static int messageIndex = 0;
+    printf("state: %d\n", decodeState);
+    printf("message: %s\n", message);
+    printf("messageIndex: %d\n", messageIndex);
+    
+    switch (decodeState) {
+        case DECODE_WAITING:
+            if (char_in == '$') {
+                printf("START DELIMITER\n");
+                message[messageIndex++] = char_in;
+                decodeState = DECODE_PAYLOAD;
+            } else {
+                decoded_message_event -> type = BB_EVENT_NO_EVENT;
+            }
+            break;
+        case DECODE_PAYLOAD:
+            printf("RECORD PAYLOAD\n");
+            if (char_in == '$' || char_in == '\n' || messageIndex + 1 > MESSAGE_MAX_PAYLOAD_LEN ) {
+                printf("UNEXPECTED DELIMETER or EXCEDDED PAYLOAD LEN\n");
+                decoded_message_event -> type = BB_EVENT_ERROR;
+                break;
+            }
+
+            break;
+        case DECODE_CHECKSUM:
+            printf("RECORD CHECKSUM\n");
+            break;
+    }
+    
+    if (decoded_message_event -> type == BB_EVENT_ERROR) {
+        return STANDARD_ERROR;
+    }
+    return SUCCESS;
 }

@@ -28,7 +28,7 @@
 #define ASCIIF 70
 // TypeDef Block
 
-typedef enum {
+static typedef enum {
     DECODE_WAITING,
     DECODE_PAYLOAD,
     DECODE_CHECKSUM

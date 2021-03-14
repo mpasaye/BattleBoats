@@ -77,6 +77,7 @@
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
             <linkerLibFileItem>Negotiation_correct.o</linkerLibFileItem>
             <linkerLibFileItem>Field_correct.o</linkerLibFileItem>
+            <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -296,7 +297,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="Lab09_main.c" ex="true" overriding="false">
+      <item path="Lab09_main.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -311,6 +312,8 @@
         </C32CPP>
         <C32Global>
         </C32Global>
+      </item>
+      <item path="Message.c" ex="true" overriding="false">
       </item>
       <item path="MessageTest.c" ex="true" overriding="false">
       </item>
@@ -416,6 +419,8 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
+      <item path="PersonalAgentTest.c" ex="true" overriding="false">
+      </item>
       <item path="PersonalMessageTest.c" ex="true" overriding="false">
       </item>
       <Simulator>

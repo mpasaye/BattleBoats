@@ -19,9 +19,7 @@
 #define PAYLOADTYPESIZE 4 // Size of different payload types accounting for null terminator
 #define MAXPARAMETERS 3
 #define MINPAYLOADSIZE 5 // Accounts for the smallest payload that has one argument
-#define SINGLEPARAM 2 // Message types that only have one argument
-#define DOUBLEPARAM 4 // Message types that have two arguments
-#define TRIPLEPARAM 6 // Message type that have three arguments
+#define MAXARGUMENTLENGTH (MESSAGE_MAX_PAYLOAD_LEN - 3)
 #define ASCIIZERO 48
 #define ASCIININE 57
 #define ASCIIA 65
@@ -115,7 +113,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         break;
     case MESSAGE_CHA:
         //printf("CHA RECEIVED\n");
-        if (strlen(arg) != SINGLEPARAM) {
+        if (strlen(arg) > MAXARGUMENTLENGTH) {
             //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
@@ -130,7 +128,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         break;
     case MESSAGE_ACC:
         //printf("ACC RECEIVED\n");
-        if (strlen(arg) != SINGLEPARAM) {
+        if (strlen(arg) > MAXARGUMENTLENGTH) {
             //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
@@ -145,7 +143,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         break;
     case MESSAGE_REV:
         //printf("REV RECEIVED\n");
-        if (strlen(arg) != SINGLEPARAM) {
+        if (strlen(arg) > MAXARGUMENTLENGTH) {
             //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
@@ -161,7 +159,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         break;
     case MESSAGE_SHO:
         //printf("SHO RECEIVED\n");
-        if (strlen(arg) != DOUBLEPARAM) {
+        if (strlen(arg) > MAXARGUMENTLENGTH) {
             //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
@@ -181,7 +179,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         break;
     case MESSAGE_RES:
         //printf("RES RECEIVED\n");
-        if (strlen(arg) != TRIPLEPARAM) {
+        if (strlen(arg) > MAXARGUMENTLENGTH) {
             //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }

@@ -31,8 +31,8 @@
 typedef enum {
     DECODE_WAITING,
     DECODE_PAYLOAD,
-    DECODE_CHECKSUM,
-    DECODE_END
+    DECODE_CHECKSUM
+    //DECODE_END
 } DecodeState;
 
 // Function Block
@@ -122,7 +122,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         }
 
         tok = strtok(arg, ",");
-        if (!atoi(tok)) {
+        if (!atoi(tok) && (strcmp(tok, "0") != 0)) {
             return STANDARD_ERROR;
         }
         param[i++] = atoi(tok);
@@ -137,7 +137,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         }
 
         tok = strtok(arg, ",");
-        if (!atoi(tok)) {
+        if (!atoi(tok) && (strcmp(tok, "0") != 0)) {
             return STANDARD_ERROR;
         }
         param[i++] = atoi(tok);
@@ -152,7 +152,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         }
 
         tok = strtok(arg, ",");
-        if (!atoi(tok)) {
+        if (!atoi(tok) && (strcmp(tok, "0") != 0)) {
             return STANDARD_ERROR;
         }
 
@@ -169,7 +169,7 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
 
         tok = strtok(arg, ",");
         while (tok != NULL) {
-            if (!atoi(tok)) {
+            if (!atoi(tok) && (strcmp(tok, "0") != 0)) {
                 return STANDARD_ERROR;
             }
             param[i++] = atoi(tok);
@@ -186,17 +186,18 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
             printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
-
+        
         tok = strtok(arg, ",");
         while (tok != NULL) {
-            if (!atoi(tok)) {
+            if (!atoi(tok) && (strcmp(tok, "0") != 0)) {
+                printf("ATOI FAILED\n");
                 return STANDARD_ERROR;
             }
             param[i++] = atoi(tok);
             tok = strtok(NULL, ",");
         }
 
-        message_event -> type = BB_EVENT_SHO_RECEIVED;
+        message_event -> type = BB_EVENT_RES_RECEIVED;
         message_event -> param0 = param[0];
         message_event -> param1 = param[1];
         message_event -> param2 = param[2];
@@ -250,8 +251,8 @@ int Message_Encode(char *message_string, Message message_to_encode)
 int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
 {
     static DecodeState decodeState = DECODE_WAITING;
-    static char message[MESSAGE_MAX_LEN];
-    static int messageIndex = 0, checkSumLength = 0;
+    static char message[MESSAGE_MAX_LEN], payload[MESSAGE_MAX_PAYLOAD_LEN], checkSum[MESSAGE_CHECKSUM_LEN];
+    static int messageIndex = 0, payloadIndex = 0, checkSumLength = 0;
     printf("state: %d\n", decodeState);
     printf("message: %s\n", message);
     printf("messageIndex: %d\n", messageIndex);
@@ -260,6 +261,10 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
     case DECODE_WAITING:
 
         if (char_in == '$') {
+            // Makes sure the decode_message_event parameters are empty
+            decoded_message_event -> param0 = NULL;
+            decoded_message_event -> param1 = NULL;
+            decoded_message_event -> param2 = NULL;
             printf("START DELIMITER\n");
             message[messageIndex++] = char_in;
             decodeState = DECODE_PAYLOAD;
@@ -269,6 +274,7 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
     case DECODE_PAYLOAD:
 
         printf("RECORD PAYLOAD\n");
+        // If statement checks for the error cases
         if (char_in == '$' || char_in == '\n' || (messageIndex + 1 > MESSAGE_MAX_PAYLOAD_LEN)) {
             printf("UNEXPECTED DELIMETER or EXCEDDED PAYLOAD LEN\n");
             decoded_message_event -> type = BB_EVENT_ERROR;
@@ -278,35 +284,54 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
 
         if (char_in == '*') {
             decodeState = DECODE_CHECKSUM;
+        } else {    // If its not the delimiter then we record the char for our payload
+            payload[payloadIndex++] = char_in;
         }
         break;
     case DECODE_CHECKSUM:
         printf("RECORD CHECKSUM\n");
-        printf("CHAR_IN: %c ASCII: %d\n", char_in, (int) char_in);
+        
+        if (char_in == '\n') {
+            printf("GO TO END STATE\n");
+            message[messageIndex++] = char_in;
+            //checkSum[checkSumLength++] = char_in;
+            break;
+        }
+        
         if (checkSumLength == MESSAGE_CHECKSUM_LEN) {
             printf("INVALID CHECKSUM LEN\n");
             decoded_message_event -> type = BB_EVENT_ERROR;
             decodeState = DECODE_WAITING;
-            break;
         }
 
         // If statement makes sure that we either have a capital A-F or number from 0-9
         if (((int) char_in >= ASCIIZERO && (int) char_in <= ASCIININE) || ((int) char_in >= ASCIIA && (int) char_in <= ASCIIF)) {
             printf("NUMBER OR LETTER\n");
             message[messageIndex++] = char_in;
-            checkSumLength++;
+            checkSum[checkSumLength++] = char_in;
         } else {
             printf("INVALID CHECKSUM CHAR\n");
             decoded_message_event -> type = BB_EVENT_ERROR;
             decodeState = DECODE_WAITING;
-            break;
         }
-        break;
-    case DECODE_END:
-        printf("END\n");
         break;
     }
 
+    // End state where we make sure that we have a valid payload and check sum matches
+    if (char_in == '\n') {
+        if (!Message_ParseMessage(payload, checkSum, decoded_message_event)) {
+            printf("ERRROR\n");
+            decoded_message_event -> type = BB_EVENT_ERROR;
+        }
+        // Need to reset all values
+        decodeState = DECODE_WAITING;
+        messageIndex = 0, payloadIndex = 0, checkSumLength = 0; // Resetting all the counters
+        // These lines empty all the char arrays
+        memset(message, '\0', strlen(message));
+        memset(payload, '\0', strlen(payload));
+        memset(checkSum, '\0', strlen(checkSum));
+    }
+    
     if (decoded_message_event -> type == BB_EVENT_ERROR) {
         return STANDARD_ERROR;
     }

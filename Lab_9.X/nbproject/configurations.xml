@@ -77,7 +77,6 @@
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
             <linkerLibFileItem>Negotiation_correct.o</linkerLibFileItem>
             <linkerLibFileItem>Field_correct.o</linkerLibFileItem>
-            <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -116,7 +115,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="AgentTest.c" ex="false" overriding="false">
+      <item path="AgentTest.c" ex="true" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -312,8 +311,6 @@
         </C32CPP>
         <C32Global>
         </C32Global>
-      </item>
-      <item path="Message.c" ex="true" overriding="false">
       </item>
       <item path="MessageTest.c" ex="true" overriding="false">
       </item>

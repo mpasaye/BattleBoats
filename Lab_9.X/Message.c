@@ -28,11 +28,10 @@
 #define ASCIIF 70
 // TypeDef Block
 
-static typedef enum {
+typedef enum {
     DECODE_WAITING,
     DECODE_PAYLOAD,
     DECODE_CHECKSUM
-    //DECODE_END
 } DecodeState;
 
 // Function Block
@@ -56,19 +55,19 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
 
     // Makes sure that the checksum string is exactly 2 characters, and the payload does not exceed max length
     if (strlen(checksum_string) != MESSAGE_CHECKSUM_LEN || strlen(payload) > MESSAGE_MAX_PAYLOAD_LEN) {
-        printf("INVALID CHECKSUM/PAYLOAD SIZE\n");
+        //printf("INVALID CHECKSUM/PAYLOAD SIZE\n");
         return STANDARD_ERROR;
     }
 
     // Makes sure that the calculated checksum and the passed are equivalent
     if (strcmp(calcCheckSum, checksum_string)) {
-        printf("INEQUIVALENT CHECKSUM\n");
+        //printf("INEQUIVALENT CHECKSUM\n");
         return STANDARD_ERROR;
     }
 
     // Makes sure that we have a payload that is not an abnormal size
     if (strlen(payload) < MINPAYLOADSIZE) {
-        printf("PAYLOAD INVALID SIZE\n");
+        //printf("PAYLOAD INVALID SIZE\n");
         return STANDARD_ERROR;
     }
 
@@ -80,22 +79,22 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
 
     // This block determines what the payload type is and changes the BB_Event type accordingly 
     if (!strcmp(payloadType, "CHA")) {
-        printf("messageID: CHA\n");
+        //printf("messageID: CHA\n");
         messageID = MESSAGE_CHA;
     } else if (!strcmp(payloadType, "ACC")) {
-        printf("messageID: ACC\n");
+        //printf("messageID: ACC\n");
         messageID = MESSAGE_ACC;
     } else if (!strcmp(payloadType, "REV")) {
-        printf("messageID: REV\n");
+        //printf("messageID: REV\n");
         messageID = MESSAGE_REV;
     } else if (!strcmp(payloadType, "SHO")) {
-        printf("messageID: SHO\n");
+        //printf("messageID: SHO\n");
         messageID = MESSAGE_SHO;
     } else if (!strcmp(payloadType, "RES")) {
-        printf("messageID: RES\n");
+        //printf("messageID: RES\n");
         messageID = MESSAGE_RES;
     } else {
-        printf("INVALID MESSAGE TYPE\n");
+        //printf("INVALID MESSAGE TYPE\n");
         messageID = MESSAGE_ERROR;
         return STANDARD_ERROR;
     }
@@ -109,15 +108,15 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
 
     switch (messageID) {
     case MESSAGE_ERROR:
-        printf("message error\n");
+        //printf("message error\n");
         break;
     case MESSAGE_NONE:
-        printf("no message event\n");
+        //printf("no message event\n");
         break;
     case MESSAGE_CHA:
-        printf("CHA RECEIVED\n");
+        //printf("CHA RECEIVED\n");
         if (strlen(arg) != SINGLEPARAM) {
-            printf("INVALID ARGUMENTS\n");
+            //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
 
@@ -130,9 +129,9 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         message_event -> param0 = param[0];
         break;
     case MESSAGE_ACC:
-        printf("ACC RECEIVED\n");
+        //printf("ACC RECEIVED\n");
         if (strlen(arg) != SINGLEPARAM) {
-            printf("INVALID ARGUMENTS\n");
+            //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
 
@@ -145,9 +144,9 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         message_event -> param0 = param[0];
         break;
     case MESSAGE_REV:
-        printf("REV RECEIVED\n");
+        //printf("REV RECEIVED\n");
         if (strlen(arg) != SINGLEPARAM) {
-            printf("INVALID ARGUMENTS\n");
+            //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
 
@@ -161,9 +160,9 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         message_event -> param0 = param[0];
         break;
     case MESSAGE_SHO:
-        printf("SHO RECEIVED\n");
+        //printf("SHO RECEIVED\n");
         if (strlen(arg) != DOUBLEPARAM) {
-            printf("INVALID ARGUMENTS\n");
+            //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
 
@@ -181,16 +180,16 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
         message_event -> param1 = param[1];
         break;
     case MESSAGE_RES:
-        printf("RES RECEIVED\n");
+        //printf("RES RECEIVED\n");
         if (strlen(arg) != TRIPLEPARAM) {
-            printf("INVALID ARGUMENTS\n");
+            //printf("INVALID ARGUMENTS\n");
             return STANDARD_ERROR;
         }
         
         tok = strtok(arg, ",");
         while (tok != NULL) {
             if (!atoi(tok) && (strcmp(tok, "0") != 0)) {
-                printf("ATOI FAILED\n");
+                //printf("ATOI FAILED\n");
                 return STANDARD_ERROR;
             }
             param[i++] = atoi(tok);
@@ -253,9 +252,9 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
     static DecodeState decodeState = DECODE_WAITING;
     static char message[MESSAGE_MAX_LEN], payload[MESSAGE_MAX_PAYLOAD_LEN], checkSum[MESSAGE_CHECKSUM_LEN];
     static int messageIndex = 0, payloadIndex = 0, checkSumLength = 0;
-    printf("state: %d\n", decodeState);
-    printf("message: %s\n", message);
-    printf("messageIndex: %d\n", messageIndex);
+    //printf("state: %d\n", decodeState);
+    //printf("message: %s\n", message);
+    //printf("messageIndex: %d\n", messageIndex);
 
     switch (decodeState) {
     case DECODE_WAITING:
@@ -265,7 +264,7 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
             decoded_message_event -> param0 = NULL;
             decoded_message_event -> param1 = NULL;
             decoded_message_event -> param2 = NULL;
-            printf("START DELIMITER\n");
+            //printf("START DELIMITER\n");
             message[messageIndex++] = char_in;
             decodeState = DECODE_PAYLOAD;
         }
@@ -273,10 +272,10 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
         break;
     case DECODE_PAYLOAD:
 
-        printf("RECORD PAYLOAD\n");
+        //printf("RECORD PAYLOAD\n");
         // If statement checks for the error cases
         if (char_in == '$' || char_in == '\n' || (messageIndex + 1 > MESSAGE_MAX_PAYLOAD_LEN)) {
-            printf("UNEXPECTED DELIMETER or EXCEDDED PAYLOAD LEN\n");
+            //printf("UNEXPECTED DELIMETER or EXCEDDED PAYLOAD LEN\n");
             decoded_message_event -> type = BB_EVENT_ERROR;
             decodeState = DECODE_WAITING;
         }
@@ -289,28 +288,28 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
         }
         break;
     case DECODE_CHECKSUM:
-        printf("RECORD CHECKSUM\n");
+        //printf("RECORD CHECKSUM\n");
         
         if (char_in == '\n') {
-            printf("GO TO END STATE\n");
+            //printf("GO TO END STATE\n");
             message[messageIndex++] = char_in;
             //checkSum[checkSumLength++] = char_in;
             break;
         }
         
         if (checkSumLength == MESSAGE_CHECKSUM_LEN) {
-            printf("INVALID CHECKSUM LEN\n");
+            //printf("INVALID CHECKSUM LEN\n");
             decoded_message_event -> type = BB_EVENT_ERROR;
             decodeState = DECODE_WAITING;
         }
 
         // If statement makes sure that we either have a capital A-F or number from 0-9
         if (((int) char_in >= ASCIIZERO && (int) char_in <= ASCIININE) || ((int) char_in >= ASCIIA && (int) char_in <= ASCIIF)) {
-            printf("NUMBER OR LETTER\n");
+            //printf("NUMBER OR LETTER\n");
             message[messageIndex++] = char_in;
             checkSum[checkSumLength++] = char_in;
         } else {
-            printf("INVALID CHECKSUM CHAR\n");
+            //printf("INVALID CHECKSUM CHAR\n");
             decoded_message_event -> type = BB_EVENT_ERROR;
             decodeState = DECODE_WAITING;
         }
@@ -320,7 +319,7 @@ int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event)
     // End state where we make sure that we have a valid payload and check sum matches
     if (char_in == '\n') {
         if (!Message_ParseMessage(payload, checkSum, decoded_message_event)) {
-            printf("ERRROR\n");
+            //printf("ERRROR\n");
             decoded_message_event -> type = BB_EVENT_ERROR;
         }
         // Need to reset all values

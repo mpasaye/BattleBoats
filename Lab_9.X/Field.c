@@ -24,21 +24,21 @@ void FieldPrint_UART(Field *own_field, Field * opp_field);
  * @param opp_field     //A field representing the opponent's ships
  */
 void FieldInit(Field *own_field, Field * opp_field) {
-    own_field.smallBoatLives = FIELD_BOAT_SIZE_SMALL;
-    own_field.mediumBoatLives = FIELD_BOAT_SIZE_MEDIUM;
-    own_field.largeBoatLives = FIELD_BOAT_SIZE_LARGE;
-    own_field.hugeBoatLives = FIELD_BOAT_SIZE_HUGE;
+    own_field->smallBoatLives = FIELD_BOAT_SIZE_SMALL;
+    own_field->mediumBoatLives = FIELD_BOAT_SIZE_MEDIUM;
+    own_field->largeBoatLives = FIELD_BOAT_SIZE_LARGE;
+    own_field->hugeBoatLives = FIELD_BOAT_SIZE_HUGE;
 
-    opp_field.smallBoatLives = FIELD_BOAT_SIZE_SMALL;
-    opp_field.mediumBoatLives = FIELD_BOAT_SIZE_MEDIUM;
-    opp_field.largeBoatLives = FIELD_BOAT_SIZE_LARGE;
-    opp_field.hugeBoatLives = FIELD_BOAT_SIZE_HUGE;
+    opp_field->smallBoatLives = FIELD_BOAT_SIZE_SMALL;
+    opp_field->mediumBoatLives = FIELD_BOAT_SIZE_MEDIUM;
+    opp_field->largeBoatLives = FIELD_BOAT_SIZE_LARGE;
+    opp_field->hugeBoatLives = FIELD_BOAT_SIZE_HUGE;
     int x = 0;
     int y = 0;
     for (x = 0; x < FIELD_COLS; x++) {
         for (y = 0; y < FIELD_ROWS; y++) {
-            own_field.grid[y][x] = FIELD_SQUARE_EMPTY;
-            opp_field.grid[y][x] = FIELD_SQUARE_EMPTY;
+            own_field->grid[y][x] = FIELD_SQUARE_EMPTY;
+            opp_field->grid[y][x] = FIELD_SQUARE_UNKNOWN;
         }
     }
 }
@@ -52,8 +52,8 @@ void FieldInit(Field *own_field, Field * opp_field) {
  *          Otherwise, return the status of the referenced square 
  */
 SquareStatus FieldGetSquareStatus(const Field *f, uint8_t row, uint8_t col) {
-    if (row < FIELD_ROWS col < FIELD_COLS) {
-        return f.grid[row][col];
+    if (row < FIELD_ROWS && col < FIELD_COLS) {
+        return f->grid[row][col];
     }
     return FIELD_SQUARE_INVALID;
 }
@@ -70,8 +70,8 @@ SquareStatus FieldGetSquareStatus(const Field *f, uint8_t row, uint8_t col) {
  * @return The old value at that field location
  */
 SquareStatus FieldSetSquareStatus(Field *f, uint8_t row, uint8_t col, SquareStatus p) {
-    int return_val = f.grid[row][col];
-    f.grid[row][col] = p;
+    int return_val = f->grid[row][col];
+    f->grid[row][col] = p;
     return return_val;
 }
 
@@ -119,47 +119,47 @@ SquareStatus FieldSetSquareStatus(Field *f, uint8_t row, uint8_t col, SquareStat
 uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection dir, BoatType boat_type) {
     int size;
     int square;
-    if (boat_type==FIELD_BOAT_TYPE_SMALL){
-        size=FIELD_BOAT_SIZE_SMALL;
-        square=FIELD_SQUARE_SMALL_BOAT;
-    }else if (boat_type==FIELD_BOAT_TYPE_MEDIUM){
-        size=FIELD_BOAT_SIZE_MEDIUM;
-        square=FIELD_SQUARE_MEDIUM_BOAT;
-    }else if (boat_type==FIELD_BOAT_TYPE_LARGE){
-        size=FIELD_BOAT_SIZE_LARGE;
-        square=FIELD_SQUARE_LARGE_BOAT;
-    }else if (boat_type==FIELD_BOAT_TYPE_HUGE){
-        size=FIELD_BOAT_SIZE_HUGE;
-        square=FIELD_SQUARE_HUGE_BOAT;
+    if (boat_type == FIELD_BOAT_TYPE_SMALL) {
+        size = FIELD_BOAT_SIZE_SMALL;
+        square = FIELD_SQUARE_SMALL_BOAT;
+    } else if (boat_type == FIELD_BOAT_TYPE_MEDIUM) {
+        size = FIELD_BOAT_SIZE_MEDIUM;
+        square = FIELD_SQUARE_MEDIUM_BOAT;
+    } else if (boat_type == FIELD_BOAT_TYPE_LARGE) {
+        size = FIELD_BOAT_SIZE_LARGE;
+        square = FIELD_SQUARE_LARGE_BOAT;
+    } else if (boat_type == FIELD_BOAT_TYPE_HUGE) {
+        size = FIELD_BOAT_SIZE_HUGE;
+        square = FIELD_SQUARE_HUGE_BOAT;
     }
-    if ((0 <= row < FIELD_ROWS) && (0 <= col < FIELD_COLS) && ((row + boat_type) < FIELD_ROWS) && ((col + boat_type) < FIELD_COLS)) {
-        
+    if ((row>=0) && (col>=0) && (row < FIELD_ROWS) && (col < FIELD_COLS) && ((row + boat_type) < FIELD_ROWS) && ((col + boat_type) < FIELD_COLS)) {
+
         if (dir == FIELD_DIR_SOUTH) {
 
             int y = row;
             for (y = row; y < size; y++) {
-                if (own_field.grid[y][col] == FIELD_SQUARE_EMPTY) {
+                if (own_field->grid[y][col] == FIELD_SQUARE_EMPTY) {
                     continue;
                 } else {
                     return STANDARD_ERROR;
                 }
             }
             for (y = row; y < size; y++) {
-                own_field.grid[y][col] = square;
+                own_field->grid[y][col] = square;
             }
 
         } else if (dir == FIELD_DIR_EAST) {
-            
+
             int x = col;
             for (x = col; x < size; x++) {
-                if (own_field.grid[row][x] == FIELD_SQUARE_EMPTY) {
+                if (own_field->grid[row][x] == FIELD_SQUARE_EMPTY) {
                     continue;
                 } else {
                     return STANDARD_ERROR;
                 }
             }
             for (x = col; x < size; x++) {
-                own_field.grid[row][x] = square;
+                own_field->grid[row][x] = square;
             }
         }
         return SUCCESS;
@@ -179,41 +179,41 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
  * @return The data that was stored at the field position indicated by gData before this attack.
  */
 SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
-    SquareStatus return_val=own_field.grid[opp_guess.row][opp_guess.col];
-    if (own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_EMPTY){
-        own_field.grid[opp_guess.row][opp_guess.col]=FIELD_SQUARE_MISS;
-        opp_guess.result=RESULT_MISS;
-    }else if(own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_SMALL_BOAT){
-        own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_HIT;
-        own_field.smallBoatLives--;
-        if (own_field.smallBoatLives>0){
-            opp_guess.result=RESULT_HIT;
-        }else{
-            opp_guess.result=RESULT_SMALL_BOAT_SUNK;
+    SquareStatus return_val = own_field->grid[opp_guess->row][opp_guess->col];
+    if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_EMPTY) {
+        own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_MISS;
+        opp_guess->result = RESULT_MISS;
+    } else if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_SMALL_BOAT) {
+        own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_HIT;
+        own_field->smallBoatLives--;
+        if (own_field->smallBoatLives > 0) {
+            opp_guess->result = RESULT_HIT;
+        } else {
+            opp_guess->result = RESULT_SMALL_BOAT_SUNK;
         }
-    }else if(own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_MEDIUM_BOAT){
-        own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_HIT;
-        own_field.mediumBoatLives--;
-        if (own_field.mediumBoatLives>0){
-            opp_guess.result=RESULT_HIT;
-        }else{
-            opp_guess.result=RESULT_MEDIUM_BOAT_SUNK;
+    } else if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_MEDIUM_BOAT) {
+        own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_HIT;
+        own_field->mediumBoatLives--;
+        if (own_field->mediumBoatLives > 0) {
+            opp_guess->result = RESULT_HIT;
+        } else {
+            opp_guess->result = RESULT_MEDIUM_BOAT_SUNK;
         }
-    }else if(own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_LARGE_BOAT){
-        own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_HIT;
-        own_field.largeBoatLives--;
-        if (own_field.largeBoatLives>0){
-            opp_guess.result=RESULT_HIT;
-        }else{
-            opp_guess.result=RESULT_LARGE_BOAT_SUNK;
+    } else if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_LARGE_BOAT) {
+        own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_HIT;
+        own_field->largeBoatLives--;
+        if (own_field->largeBoatLives > 0) {
+            opp_guess->result = RESULT_HIT;
+        } else {
+            opp_guess->result = RESULT_LARGE_BOAT_SUNK;
         }
-    }else if(own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_HUGE_BOAT){
-        own_field.grid[opp_guess.row][opp_guess.col]==FIELD_SQUARE_HIT;
-        own_field.hugeBoatLives--;
-        if (own_field.hugeBoatLives>0){
-            opp_guess.result=RESULT_HIT;
-        }else{
-            opp_guess.result=RESULT_HUGE_BOAT_SUNK;
+    } else if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_HUGE_BOAT) {
+        own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_HIT;
+        own_field->hugeBoatLives--;
+        if (own_field->hugeBoatLives > 0) {
+            opp_guess->result = RESULT_HIT;
+        } else {
+            opp_guess->result = RESULT_HUGE_BOAT_SUNK;
         }
     }
     return return_val;
@@ -232,20 +232,20 @@ SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
  * @return The previous value of that coordinate position in the field before the hit/miss was
  * registered.
  */
-SquareStatus FieldUpdateKnowledge(Field *opp_field, const GuessData *own_guess){
-    SquareStatus return_val=opp_field.grid[own_guess.row][own_guess.col]
-    opp_field.grid[own_guess.row][own_guess.col]=own_guess.result;
-    if (own_guess.result==RESULT_SMALL_BOAT_SUNK){
-        opp_field.smallBoatLives=0;
-    }else if (own_guess.result==RESULT_MEDIUM_BOAT_SUNK){
-        opp_field.mediumBoatLives=0;
-    }else if (own_guess.result==RESULT_LARGE_BOAT_SUNK){
-        opp_field.largeBoatLives=0;
-    }else if (own_guess.result==RESULT_HUGE_BOAT_SUNK){
-        opp_field.hugeBoatLives=0;
+SquareStatus FieldUpdateKnowledge(Field *opp_field, const GuessData *own_guess) {
+    SquareStatus return_val = opp_field->grid[own_guess->row][own_guess->col];
+    opp_field->grid[own_guess->row][own_guess->col] = own_guess->result;
+    if (own_guess->result == RESULT_SMALL_BOAT_SUNK) {
+        opp_field->smallBoatLives = 0;
+    } else if (own_guess->result == RESULT_MEDIUM_BOAT_SUNK) {
+        opp_field->mediumBoatLives = 0;
+    } else if (own_guess->result == RESULT_LARGE_BOAT_SUNK) {
+        opp_field->largeBoatLives = 0;
+    } else if (own_guess->result == RESULT_HUGE_BOAT_SUNK) {
+        opp_field->hugeBoatLives = 0;
     }
     return return_val;
-    
+
 }
 
 /**
@@ -256,23 +256,22 @@ SquareStatus FieldUpdateKnowledge(Field *opp_field, const GuessData *own_guess){
  * @param f The field to grab data from.
  * @return A 4-bit value with each bit corresponding to whether each ship is alive or not.
  */
-uint8_t FieldGetBoatStates(const Field *f){
-    uint8_t result=0;
-    if (f.smallBoatLives>0){
-        result+=FIELD_BOAT_STATUS_SMALL;
+uint8_t FieldGetBoatStates(const Field *f) {
+    uint8_t result = 0;
+    if (f->smallBoatLives > 0) {
+        result += FIELD_BOAT_STATUS_SMALL;
     }
-    if (f.mediumBoatLives>0){
-        result+=FIELD_BOAT_STATUS_MEDIUM;
+    if (f->mediumBoatLives > 0) {
+        result += FIELD_BOAT_STATUS_MEDIUM;
     }
-    if (f.largeBoatLives>0){
-        result+=FIELD_BOAT_STATUS_LARGE;
+    if (f->largeBoatLives > 0) {
+        result += FIELD_BOAT_STATUS_LARGE;
     }
-    if (f.hugeBoatLives>0){
-        result+=FIELD_BOAT_STATUS_HUGE;
+    if (f->hugeBoatLives > 0) {
+        result += FIELD_BOAT_STATUS_HUGE;
     }
     return result;
 }
-
 
 /**
  * This function is responsible for placing all four of the boats on a field.
@@ -282,8 +281,45 @@ uint8_t FieldGetBoatStates(const Field *f){
  * 
  * This function should never fail when passed a properly initialized field!
  */
-uint8_t FieldAIPlaceAllBoats(Field *own_field){
-    
+uint8_t FieldAIPlaceAllBoats(Field *own_field) {
+
+    int boatsPlaced = 0;
+    int result;
+    while (boatsPlaced < 4) {
+        int smallplaced = FALSE;
+        int mediumplaced = FALSE;
+        int largeplaced = FALSE;
+        int hugeplaced = FALSE;
+        if (smallplaced == FALSE) {
+            result = FieldAddBoat(own_field, rand() % 5, rand() % 9, rand() % 2, FIELD_BOAT_TYPE_SMALL);
+            if (result == SUCCESS) {
+                boatsPlaced++;
+                smallplaced = TRUE;
+            }
+        }
+        if (mediumplaced == FALSE) {
+            result = FieldAddBoat(own_field, rand() % 5, rand() % 9, rand() % 2, FIELD_BOAT_TYPE_MEDIUM);
+            if (result == SUCCESS) {
+                boatsPlaced++;
+                mediumplaced = TRUE;
+            }
+        }
+        if (largeplaced == FALSE) {
+            result = FieldAddBoat(own_field, rand() % 5, rand() % 9, rand() % 2, FIELD_BOAT_TYPE_LARGE);
+            if (result == SUCCESS) {
+                boatsPlaced++;
+                largeplaced = TRUE;
+            }
+        }
+        if (hugeplaced == FALSE) {
+            result = FieldAddBoat(own_field, rand() % 5, rand() % 9, rand() % 2, FIELD_BOAT_TYPE_HUGE);
+            if (result == SUCCESS) {
+                boatsPlaced++;
+                hugeplaced = TRUE;
+            }
+        }
+    }
+    return SUCCESS;
 }
 
 /**
@@ -298,7 +334,22 @@ uint8_t FieldAIPlaceAllBoats(Field *own_field){
  * @return a GuessData struct whose row and col parameters are the coordinates of the guess.  The 
  *           result parameter is irrelevant.
  */
-GuessData FieldAIDecideGuess(const Field *opp_field);
+GuessData FieldAIDecideGuess(const Field *opp_field) {
+    int undecided = TRUE;
+    int col;
+    int row;
+    GuessData myGuess;
+    while (undecided) {
+        col = rand() % 9;
+        row = rand() % 5;
+        if (opp_field->grid[row][col] == FIELD_SQUARE_UNKNOWN) {
+            undecided = FALSE;
+            myGuess->col = col;
+            myGuess->row = row;
+        }
+    }
+    return myGuess;
+}
 
 /** 
  * For Extra Credit:  Make the two "AI" functions above 

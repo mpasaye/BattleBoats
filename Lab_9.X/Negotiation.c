@@ -20,8 +20,10 @@
  */
 NegotiationData NegotiationHash(NegotiationData secret) {
     NegotiationData hash;
+    printf("secret:%d\n", secret);
     hash = (secret * secret) % PUBLIC_KEY;
-    printf("hash:%d",hash);
+    printf("secret squared: %d", (secret*secret));
+    printf("hash:%d\n",hash);
     return hash;
 }
 

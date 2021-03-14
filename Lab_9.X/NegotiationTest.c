@@ -17,17 +17,18 @@
 
 // Battleboats Libraries:
 #include "BattleBoats.h"
-#include "Message.h"
+#include "Negotiation.h"
 
 
 int main(){
     NegotiationData mysecret= 3;
-    NegociationData thiersecret= 4;
-    NegociationData mycommitment= NegotiationHash(mysecret);
-    NegociationData theircommitment= (16%PUBLIC_KEY);
+    NegotiationData theirsecret= 4;
+    NegotiationData mycommitment= NegotiationHash(mysecret);
+    NegotiationData theircommitment= (16%PUBLIC_KEY);
  
     printf("result of negociation hash: %d", mycommitment);
     NegotiationVerify(theirsecret, theircommitment);
-    printf("negoviation verify: %d", NegotiationVerify(theirsecret, theircommitment);)
+    printf("negoviation verify: %d", NegotiationVerify(theirsecret, theircommitment));
     //NegotiateCoinFlip(mysecret, theirsecret);
+    return 0;
 }

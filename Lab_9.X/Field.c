@@ -344,8 +344,8 @@ GuessData FieldAIDecideGuess(const Field *opp_field) {
         row = rand() % 5;
         if (opp_field->grid[row][col] == FIELD_SQUARE_UNKNOWN) {
             undecided = FALSE;
-            myGuess->col = col;
-            myGuess->row = row;
+            myGuess.col = col;
+            myGuess.row = row;
         }
     }
     return myGuess;

@@ -34,13 +34,15 @@
       <itemPath>FieldOled.c</itemPath>
       <itemPath>FieldTest.c</itemPath>
       <itemPath>Lab09_main.c</itemPath>
-      <itemPath>Message.c</itemPath>
-      <itemPath>MessageTest.c</itemPath>
       <itemPath>Negotiation.c</itemPath>
       <itemPath>NegotiationTest.c</itemPath>
       <itemPath>Oled.c</itemPath>
       <itemPath>OledDriver.c</itemPath>
       <itemPath>Uart1.c</itemPath>
+      <itemPath>Message.c</itemPath>
+      <itemPath>MessageTest.c</itemPath>
+      <itemPath>PersonalMessageTest.c</itemPath>
+      <itemPath>PersonalAgentTest.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -73,9 +75,14 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
+<<<<<<< HEAD
             <linkerLibFileItem>Agent_correct.o</linkerLibFileItem>
             <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
+=======
+            <linkerLibFileItem>Negotiation_correct.o</linkerLibFileItem>
+>>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
             <linkerLibFileItem>Field_correct.o</linkerLibFileItem>
+            <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -98,7 +105,11 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+<<<<<<< HEAD
       <item path="Agent.c" ex="true" overriding="false">
+=======
+      <item path="Agent.c" ex="false" overriding="false">
+>>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
         <C32>
         </C32>
         <C32-AR>
@@ -263,7 +274,11 @@
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
+<<<<<<< HEAD
       <item path="Field.c" ex="false" overriding="false">
+=======
+      <item path="Field.c" ex="true" overriding="false">
+>>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
         <C32>
         </C32>
         <C32-AR>
@@ -295,7 +310,25 @@
         <C32Global>
         </C32Global>
       </item>
+<<<<<<< HEAD
       <item path="Lab09_main.c" ex="true" overriding="false">
+=======
+      <item path="Lab09_main.c" ex="false" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+>>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
       </item>
       <item path="Message.c" ex="true" overriding="false">
         <C32>
@@ -329,7 +362,11 @@
         <C32Global>
         </C32Global>
       </item>
+<<<<<<< HEAD
       <item path="Negotiation.c" ex="false" overriding="false">
+=======
+      <item path="Negotiation.c" ex="true" overriding="false">
+>>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
         <C32>
         </C32>
         <C32-AR>
@@ -345,7 +382,11 @@
         <C32Global>
         </C32Global>
       </item>
+<<<<<<< HEAD
       <item path="NegotiationTest.c" ex="false" overriding="false">
+=======
+      <item path="NegotiationTest.c" ex="true" overriding="false">
+>>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
         <C32>
         </C32>
         <C32-AR>
@@ -431,6 +472,10 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
+      <item path="PersonalAgentTest.c" ex="true" overriding="false">
+      </item>
+      <item path="PersonalMessageTest.c" ex="true" overriding="false">
+      </item>
       <Simulator>
         <property key="codecoverage.enabled" value="Disable"/>
         <property key="codecoverage.enableoutputtofile" value="false"/>

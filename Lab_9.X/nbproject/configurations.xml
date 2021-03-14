@@ -59,7 +59,7 @@
         <targetDevice>PIC32MX320F128H</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>Simulator</platformTool>
+        <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.50</languageToolchainVersion>
         <platform>3</platform>
@@ -74,7 +74,6 @@
           <linkerLibItems>
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
             <linkerLibFileItem>Agent_correct.o</linkerLibFileItem>
-            <linkerLibFileItem>Negotiation_correct.o</linkerLibFileItem>
             <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
             <linkerLibFileItem>Field_correct.o</linkerLibFileItem>
           </linkerLibItems>
@@ -264,7 +263,7 @@
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
-      <item path="Field.c" ex="true" overriding="false">
+      <item path="Field.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>

@@ -1,6 +1,8 @@
 #include "Negotiation.h"
 #include <math.h>
 #include "BOARD.h"
+#include <stdio.h>
+#include <string.h>
 
 /**
  * This function implements a one-way hash.  It maps its input, A, 
@@ -17,8 +19,9 @@
  * NegotiationHash(12345) == 43182
  */
 NegotiationData NegotiationHash(NegotiationData secret) {
-    int hash;
+    NegotiationData hash;
     hash = (secret * secret) % PUBLIC_KEY;
+    printf("hash:%d",hash);
     return hash;
 }
 
@@ -34,6 +37,7 @@ NegotiationData NegotiationHash(NegotiationData secret) {
  */
 int NegotiationVerify(NegotiationData secret, NegotiationData commitment) {
     int hash = (secret * secret) % PUBLIC_KEY;
+    
     if (hash == commitment) {
         return TRUE;
     } else {
@@ -51,7 +55,7 @@ int NegotiationVerify(NegotiationData secret, NegotiationData commitment) {
  * A XOR B is 1, then the outcome is HEADS.  Otherwise, the outcome is TAILS.
  */
 NegotiationOutcome NegotiateCoinFlip(NegotiationData A, NegotiationData B) {
-    int outcome = A ^ B;
+    NegotiationData outcome = A ^ B;
     if (outcome==HEADS){
         return HEADS;
     }else{

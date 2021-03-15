@@ -75,14 +75,9 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
-<<<<<<< HEAD
-            <linkerLibFileItem>Agent_correct.o</linkerLibFileItem>
-            <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
-=======
             <linkerLibFileItem>Negotiation_correct.o</linkerLibFileItem>
->>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
             <linkerLibFileItem>Field_correct.o</linkerLibFileItem>
-            <linkerLibFileItem>Agent_correct.o</linkerLibFileItem>
+            <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -105,15 +100,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-<<<<<<< HEAD
-      <item path="Agent.c" ex="true" overriding="false">
-=======
-<<<<<<< HEAD
-      <item path="Agent.c" ex="true" overriding="false">
-=======
       <item path="Agent.c" ex="false" overriding="false">
->>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
->>>>>>> 517d32fa8d21f78d65ef5a2f6726b3b5d97ad7e9
         <C32>
         </C32>
         <C32-AR>
@@ -278,11 +265,7 @@
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
-<<<<<<< HEAD
-      <item path="Field.c" ex="false" overriding="false">
-=======
       <item path="Field.c" ex="true" overriding="false">
->>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
         <C32>
         </C32>
         <C32-AR>
@@ -314,9 +297,6 @@
         <C32Global>
         </C32Global>
       </item>
-<<<<<<< HEAD
-      <item path="Lab09_main.c" ex="true" overriding="false">
-=======
       <item path="Lab09_main.c" ex="false" overriding="false">
         <C32>
         </C32>
@@ -332,13 +312,8 @@
         </C32CPP>
         <C32Global>
         </C32Global>
->>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
       </item>
-<<<<<<< HEAD
-      <item path="Message.c" ex="false" overriding="false">
-=======
       <item path="Message.c" ex="true" overriding="false">
->>>>>>> 517d32fa8d21f78d65ef5a2f6726b3b5d97ad7e9
         <C32>
         </C32>
         <C32-AR>
@@ -370,11 +345,7 @@
         <C32Global>
         </C32Global>
       </item>
-<<<<<<< HEAD
-      <item path="Negotiation.c" ex="false" overriding="false">
-=======
       <item path="Negotiation.c" ex="true" overriding="false">
->>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
         <C32>
         </C32>
         <C32-AR>
@@ -390,11 +361,7 @@
         <C32Global>
         </C32Global>
       </item>
-<<<<<<< HEAD
-      <item path="NegotiationTest.c" ex="false" overriding="false">
-=======
       <item path="NegotiationTest.c" ex="true" overriding="false">
->>>>>>> 3897e9e9398276cc50c3d9ff2a5f324b3e47dc3a
         <C32>
         </C32>
         <C32-AR>

@@ -31,6 +31,7 @@ typedef enum {
 
 static AgentState agentState;
 static int turnCnt;
+static char aStr[50], aHashStr[50];    // 50 should be enough to store all secrets and hash's
 static Message message;
 static NegotiationData a, aHash, b;
 static NegotiationOutcome coinFlip;
@@ -45,6 +46,9 @@ void AgentInit(void)
     agentState = AGENT_STATE_START; // Initializing the state machine to Start
     turnCnt = 0; // Initialize the turn counter to zero
     message.type = MESSAGE_NONE; // Initialize the message
+    a = 0;
+    b = 0;
+    aHash = 0;
 }
 
 Message AgentRun(BB_Event event)
@@ -53,11 +57,18 @@ Message AgentRun(BB_Event event)
         AgentInit();
     }
 
+    // Make sure mssage.type == MESSAGE_NONE so no weird stuff happens
+    message.type = MESSAGE_NONE;
+    
+    printf("AGENT STATE: %d\n", agentState);
+    printf("BB_EVENT: %d\n", event.type);
+    
     switch (agentState) {
     case AGENT_STATE_START:
         printf("START STATE\n");
         if (event.type == BB_EVENT_START_BUTTON) {
-            a = (NegotiationData) rand();
+            printf("START BUTTON\n");
+            a = (NegotiationData) rand() & 0xFFFF;
             //printf("value of a: %d\n", a);
             aHash = NegotiationHash(a);
             //printf("value of aHash: %d\n", aHash);
@@ -67,7 +78,8 @@ Message AgentRun(BB_Event event)
             FieldAIPlaceAllBoats(&ownField);
             agentState = AGENT_STATE_CHALLENGING;
         } else if (event.type == BB_EVENT_CHA_RECEIVED) {
-            b = (NegotiationData) rand();
+            printf("CHA RECEIVED\n");
+            b = (NegotiationData) rand() & 0xFFFF;
             message.type = MESSAGE_ACC;
             message.param0 = b;
             FieldInit(&ownField, &oppField);
@@ -78,22 +90,34 @@ Message AgentRun(BB_Event event)
         break;
     case AGENT_STATE_CHALLENGING:
         printf("CHALLENGING STATE\n");
+        OledClear(0);
         if (event.type == BB_EVENT_ACC_RECEIVED) {
-            b = message.param0; // Obtaining the secret sent by the opponent 
+            printf("ACC RECEIVED\n");
+            b = event.param0; // Obtaining the secret sent by the opponent 
             message.type = MESSAGE_REV; // Sending our secret to our opponent
             message.param0 = a;
             coinFlip = NegotiateCoinFlip(a, b);
+            //coinFlip = TAILS;
             if (coinFlip == HEADS) {
+                printf("HEADS\n");
                 agentState = AGENT_STATE_WAITING_TO_SEND;
             } else {
+                printf("TAILS\n");
                 agentState = AGENT_STATE_DEFENDING;
             }
         }
+        sprintf(aStr, "\n %d = A", (int) a);
+        sprintf(aHashStr, "\n\n %d = hash_a", (int) aHash);
+        OledDrawString("CHALLENGING");
+        OledDrawString(aStr);
+        OledDrawString(aHashStr);
+        OledUpdate();
         break;
     case AGENT_STATE_ACCEPTING:
         printf("ACCEPTING STATE\n");
         if (event.type == BB_EVENT_REV_RECEIVED) {
-            a = message.param0;
+            printf("REV RECEIVED\n");
+            a = event.param0;
             coinFlip = NegotiateCoinFlip(a, b);
             if (!NegotiationVerify(a, aHash)) {
                 agentState = AGENT_STATE_END_SCREEN;
@@ -109,10 +133,12 @@ Message AgentRun(BB_Event event)
                 agentState = AGENT_STATE_ATTACKING;
             }
         }
+        
         break;
     case AGENT_STATE_WAITING_TO_SEND:
         printf("WAITING TO SEND STATE\n");
         if (event.type == BB_EVENT_MESSAGE_SENT) {
+            printf("MESSAGE SENT\n");
             turnCnt++;
             guessOut = FieldAIDecideGuess(&oppField);
             message.type = MESSAGE_SHO;
@@ -120,13 +146,15 @@ Message AgentRun(BB_Event event)
             message.param1 = guessOut.col;
             agentState = AGENT_STATE_ATTACKING;
         }
+        
         break;
     case AGENT_STATE_ATTACKING:
         printf("ATTACKING STATE\n");
         if (event.type == BB_EVENT_RES_RECEIVED) {
-            guessRes.row = message.param0;
-            guessRes.col = message.param1;
-            guessRes.result = message.param2;
+            printf("RES RECEIVED\n");
+            guessRes.row = event.param0;
+            guessRes.col = event.param1;
+            guessRes.result = event.param2;
             FieldUpdateKnowledge(&oppField, &guessRes);
             // Checks if all the boats are destroyed
             if (!(oppField.hugeBoatLives) && !(oppField.largeBoatLives) && !(oppField.mediumBoatLives) && !(oppField.smallBoatLives)) {
@@ -137,12 +165,14 @@ Message AgentRun(BB_Event event)
                 agentState = AGENT_STATE_DEFENDING;
             }
         }
+        
         break;
     case AGENT_STATE_DEFENDING:
         printf("DEFENDING STATE\n");
         if (event.type == BB_EVENT_SHO_RECEIVED) {
-            guessRes.row = message.param0;
-            guessRes.col = message.param0;
+            printf("SHO RECEIVED\n");
+            guessRes.row = event.param0;
+            guessRes.col = event.param1;
             FieldRegisterEnemyAttack(&ownField, &guessRes);
             message.type = MESSAGE_RES;
             message.param0 = guessRes.row;
@@ -157,6 +187,7 @@ Message AgentRun(BB_Event event)
                 agentState = AGENT_STATE_WAITING_TO_SEND;
             }
         }
+        
         break;
     case AGENT_STATE_END_SCREEN:
         printf("END SCREEN STATE\n");

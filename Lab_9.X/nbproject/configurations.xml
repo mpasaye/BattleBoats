@@ -75,7 +75,6 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
-            <linkerLibFileItem>Field_correct.o</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -263,7 +262,7 @@
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
-      <item path="Field.c" ex="true" overriding="false">
+      <item path="Field.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -279,7 +278,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="FieldTest.c" ex="true" overriding="false">
+      <item path="FieldTest.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -359,7 +358,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="NegotiationTest.c" ex="false" overriding="false">
+      <item path="NegotiationTest.c" ex="true" overriding="false">
         <C32>
         </C32>
         <C32-AR>

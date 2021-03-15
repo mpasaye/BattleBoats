@@ -75,7 +75,6 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
-            <linkerLibFileItem>Negotiation_correct.o</linkerLibFileItem>
             <linkerLibFileItem>Field_correct.o</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
@@ -296,7 +295,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="Lab09_main.c" ex="false" overriding="false">
+      <item path="Lab09_main.c" ex="true" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -344,7 +343,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="Negotiation.c" ex="true" overriding="false">
+      <item path="Negotiation.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -360,7 +359,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="NegotiationTest.c" ex="true" overriding="false">
+      <item path="NegotiationTest.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>

@@ -20,6 +20,8 @@
 #define MAXPARAMETERS 3
 #define MINPAYLOADSIZE 5 // Accounts for the smallest payload that has one argument
 #define MAXARGUMENTLENGTH (MESSAGE_MAX_PAYLOAD_LEN - 3)
+#define TWOARGUMENTS 2
+#define THREEARGUMENTS 3
 #define ASCIIZERO 48
 #define ASCIININE 57
 #define ASCIIA 65
@@ -172,7 +174,10 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
             param[i++] = atoi(tok);
             tok = strtok(NULL, ",");
         }
-
+        
+        if (i != TWOARGUMENTS) {    // Had an incorrect amount of arguments
+            return STANDARD_ERROR;
+        }
         message_event -> type = BB_EVENT_SHO_RECEIVED;
         message_event -> param0 = param[0];
         message_event -> param1 = param[1];
@@ -193,7 +198,10 @@ int Message_ParseMessage(const char* payload, const char* checksum_string, BB_Ev
             param[i++] = atoi(tok);
             tok = strtok(NULL, ",");
         }
-
+        
+        if (i != THREEARGUMENTS) {  // Had an incorrect amount of arguments
+            return STANDARD_ERROR;
+        }
         message_event -> type = BB_EVENT_RES_RECEIVED;
         message_event -> param0 = param[0];
         message_event -> param1 = param[1];

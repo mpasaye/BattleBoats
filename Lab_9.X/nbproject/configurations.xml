@@ -73,8 +73,11 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
+<<<<<<< HEAD
             <linkerLibFileItem>Agent_correct.o</linkerLibFileItem>
             <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
+=======
+>>>>>>> 27200c9d248933ca97f081f5ca97f98fb050751a
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -97,7 +100,11 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+<<<<<<< HEAD
       <item path="Agent.c" ex="true" overriding="false">
+=======
+      <item path="Agent.c" ex="false" overriding="false">
+>>>>>>> 27200c9d248933ca97f081f5ca97f98fb050751a
         <C32>
         </C32>
         <C32-AR>
@@ -295,8 +302,25 @@
         </C32Global>
       </item>
       <item path="Lab09_main.c" ex="true" overriding="false">
+<<<<<<< HEAD
+=======
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+>>>>>>> 27200c9d248933ca97f081f5ca97f98fb050751a
       </item>
-      <item path="Message.c" ex="true" overriding="false">
+      <item path="Message.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -430,6 +454,41 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
+<<<<<<< HEAD
+=======
+      <item path="PersonalAgentTest.c" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="PersonalMessageTest.c" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+>>>>>>> 27200c9d248933ca97f081f5ca97f98fb050751a
       <Simulator>
         <property key="codecoverage.enabled" value="Disable"/>
         <property key="codecoverage.enableoutputtofile" value="false"/>

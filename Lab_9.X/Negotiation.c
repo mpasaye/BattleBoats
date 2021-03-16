@@ -58,6 +58,16 @@ int NegotiationVerify(NegotiationData secret, NegotiationData commitment) {
  */
 NegotiationOutcome NegotiateCoinFlip(NegotiationData A, NegotiationData B) {
     NegotiationData outcome = A ^ B;
+    int i;
+    int result;
+    int onescount;
+    for (i=0; i<8; i++){
+        result=outcome%2;
+        if (result==1){
+            onescount++;
+        }
+        outcome=(outcome>>1);
+    }
     if (outcome==HEADS){
         return HEADS;
     }else{

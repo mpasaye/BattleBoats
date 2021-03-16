@@ -18,7 +18,8 @@
  * NegotiationHash(3) == 9
  * NegotiationHash(12345) == 43182
  */
-NegotiationData NegotiationHash(NegotiationData secret) {
+NegotiationData NegotiationHash(NegotiationData secret)
+{
     NegotiationData hash;
     hash = (secret * secret) % PUBLIC_KEY;
     return hash;
@@ -34,9 +35,10 @@ NegotiationData NegotiationHash(NegotiationData secret) {
  * @param commitment    //the hash of the secret number
  * @return TRUE if the commitment validates the revealed secret, FALSE otherwise
  */
-int NegotiationVerify(NegotiationData secret, NegotiationData commitment) {
+int NegotiationVerify(NegotiationData secret, NegotiationData commitment)
+{
     int hash = (secret * secret) % PUBLIC_KEY;
-    
+
     if (hash == commitment) {
         return TRUE;
     } else {
@@ -53,23 +55,27 @@ int NegotiationVerify(NegotiationData secret, NegotiationData commitment) {
  * So, for example, the number 0b01101011 has 5 ones.  If the parity of
  * A XOR B is 1, then the outcome is HEADS.  Otherwise, the outcome is TAILS.
  */
-NegotiationOutcome NegotiateCoinFlip(NegotiationData A, NegotiationData B) {
-    NegotiationData outcome = A ^ B;
-    int i;
-    int result;
-    int onescount;
-    for (i=0; i<8; i++){
-        result=outcome%2;
-        if (result==1){
-            onescount++;
+NegotiationOutcome NegotiateCoinFlip(NegotiationData A, NegotiationData B)
+{
+    NegotiationData bitStr = A ^ B;
+    NegotiationOutcome outCome;
+    int bitIndex = 0;
+    int oneCnt = 0;
+
+    while (bitIndex < 8) {
+        if ((bitStr & 0x01) % 2) { // Checking if the first bit is zero
+            oneCnt++;
         }
-        outcome=(outcome>>1);
+        bitIndex++;
+        bitStr = bitStr >> 1; // Getting rid of the bit we just read
     }
-    if (onescount%2==0){
-        return HEADS;
-    }else{
-        return TAILS;
+
+    if (!(oneCnt % 2)) {
+        outCome = TAILS;
+    } else {
+        outCome = HEADS;
     }
+    return outCome;
 }
 
 

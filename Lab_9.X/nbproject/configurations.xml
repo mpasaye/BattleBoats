@@ -73,6 +73,7 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
+            <linkerLibFileItem>Field_correct.o</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -169,7 +170,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value=""/>
+        <property key="heap-size" value="200"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -230,11 +231,13 @@
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
+      <item path="Field.c" ex="true" overriding="false">
+      </item>
       <item path="FieldTest.c" ex="true" overriding="false">
       </item>
-      <item path="Lab09_main.c" ex="true" overriding="false">
-      </item>
       <item path="MessageTest.c" ex="true" overriding="false">
+      </item>
+      <item path="NegotiationTest.c" ex="true" overriding="false">
       </item>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>

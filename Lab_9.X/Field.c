@@ -146,15 +146,19 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
     if (boat_type == FIELD_BOAT_TYPE_SMALL) {
         size = FIELD_BOAT_SIZE_SMALL;
         square = FIELD_SQUARE_SMALL_BOAT;
+        own_field->smallBoatLives = FIELD_BOAT_SIZE_SMALL;
     } else if (boat_type == FIELD_BOAT_TYPE_MEDIUM) {
         size = FIELD_BOAT_SIZE_MEDIUM;
         square = FIELD_SQUARE_MEDIUM_BOAT;
+        own_field->smallBoatLives = FIELD_BOAT_SIZE_MEDIUM;
     } else if (boat_type == FIELD_BOAT_TYPE_LARGE) {
         size = FIELD_BOAT_SIZE_LARGE;
         square = FIELD_SQUARE_LARGE_BOAT;
+        own_field->smallBoatLives = FIELD_BOAT_SIZE_LARGE;
     } else if (boat_type == FIELD_BOAT_TYPE_HUGE) {
         size = FIELD_BOAT_SIZE_HUGE;
         square = FIELD_SQUARE_HUGE_BOAT;
+        own_field->smallBoatLives = FIELD_BOAT_SIZE_HUGE;
     }
     //printf("printing size: %d\n", size);
     int lastindex;
@@ -214,6 +218,7 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
  */
 SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
     SquareStatus return_val = own_field->grid[opp_guess->row][opp_guess->col];
+    
     if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_EMPTY) {
         own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_MISS;
         opp_guess->result = RESULT_MISS;
@@ -225,6 +230,7 @@ SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
         } else {
             opp_guess->result = RESULT_SMALL_BOAT_SUNK;
         }
+        
     } else if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_MEDIUM_BOAT) {
         own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_HIT;
         own_field->mediumBoatLives--;
@@ -267,9 +273,9 @@ SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
  * registered.
  */
 SquareStatus FieldUpdateKnowledge(Field *opp_field, const GuessData *own_guess) {
-    
+
     SquareStatus return_val = opp_field->grid[own_guess->row][own_guess->col];
-    
+
     if (own_guess->result == RESULT_HIT) {
         opp_field->grid[own_guess->row][own_guess->col] = FIELD_SQUARE_HIT;
     } else if (own_guess->result == RESULT_MISS) {

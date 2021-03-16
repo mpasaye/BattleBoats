@@ -193,10 +193,13 @@ int main()
         int testCnt = 0;
         GuessData shot = {0, 0}; // Sets the row and column being attacked to [0][0]
         Field ownField, oppField;
+        
         FieldInit(&ownField, &oppField);
+        
         FieldAddBoat(&ownField, 0, 0, FIELD_DIR_EAST, FIELD_BOAT_TYPE_SMALL);
+        
         FieldAddBoat(&oppField, 0, 0, FIELD_DIR_EAST, FIELD_BOAT_TYPE_HUGE);
-
+        
         if (FieldRegisterEnemyAttack(&ownField, &shot) == FIELD_SQUARE_SMALL_BOAT && shot.result == RESULT_HIT) {
             printf("\tTEST PASSED\n");
             testCnt++;
@@ -210,7 +213,7 @@ int main()
         } else {
             printf("\tTEST FAILED\n");
         }
-        
+       
         // Testing to see that we sink a boat
         shot.col = 1;
         FieldRegisterEnemyAttack(&ownField, &shot);
@@ -221,7 +224,8 @@ int main()
         } else {
             printf("\tTEST FAILED\n");
         }
-
+        
+        
         if (FieldGetSquareStatus(&ownField, 0, 0) == FIELD_SQUARE_HIT 
                 && FieldGetSquareStatus(&ownField, 0, 1) == FIELD_SQUARE_HIT 
                 && FieldGetSquareStatus(&ownField, 0, 2) == FIELD_SQUARE_HIT) {

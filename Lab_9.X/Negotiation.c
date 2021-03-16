@@ -65,7 +65,7 @@ NegotiationOutcome NegotiateCoinFlip(NegotiationData A, NegotiationData B) {
         }
         outcome=(outcome>>1);
     }
-    if (outcome==HEADS){
+    if (onescount%2==0){
         return HEADS;
     }else{
         return TAILS;

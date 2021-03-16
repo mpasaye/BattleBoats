@@ -2,6 +2,7 @@
 #include "BOARD.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
  * This function is optional, but recommended.   It prints a representation of both
  * fields, similar to the OLED display.
@@ -9,28 +10,28 @@
  * @param p The data to initialize the entire field to, should be a member of enum
  *                     SquareStatus.
  */
-void FieldPrint_UART(Field *own_field, Field * opp_field){
-    int row=0;
-    int col=0;
+void FieldPrint_UART(Field *own_field, Field * opp_field) {
+    int row = 0;
+    int col = 0;
     printf("printing my field\n");
-    for (row=0; row< FIELD_ROWS; row++){
+    for (row = 0; row < FIELD_ROWS; row++) {
         printf("%d| ", row);
-        for  (col=0; col< FIELD_COLS; col++){
+        for (col = 0; col < FIELD_COLS; col++) {
             printf("%d ", own_field->grid[row][col]);
         }
         printf("|\n");
     }
-    row=0;
-    col=0;
+    row = 0;
+    col = 0;
     printf("printing opp field\n");
-    for (row=0; row< FIELD_ROWS; row++){
+    for (row = 0; row < FIELD_ROWS; row++) {
         printf("%d| ", row);
-        for  (col=0; col< FIELD_COLS; col++){
+        for (col = 0; col < FIELD_COLS; col++) {
             printf("%d ", opp_field->grid[row][col]);
         }
         printf("|\n");
     }
-    
+
 }
 
 /**
@@ -46,11 +47,12 @@ void FieldPrint_UART(Field *own_field, Field * opp_field){
  * @param opp_field     //A field representing the opponent's ships
  */
 void FieldInit(Field *own_field, Field * opp_field) {
-    own_field->smallBoatLives = FIELD_BOAT_SIZE_SMALL;
-    own_field->mediumBoatLives = FIELD_BOAT_SIZE_MEDIUM;
-    own_field->largeBoatLives = FIELD_BOAT_SIZE_LARGE;
-    own_field->hugeBoatLives = FIELD_BOAT_SIZE_HUGE;
-    
+
+    own_field->smallBoatLives = 0;
+    own_field->mediumBoatLives = 0;
+    own_field->largeBoatLives = 0;
+    own_field->hugeBoatLives = 0;
+
     opp_field->smallBoatLives = FIELD_BOAT_SIZE_SMALL;
     opp_field->mediumBoatLives = FIELD_BOAT_SIZE_MEDIUM;
     opp_field->largeBoatLives = FIELD_BOAT_SIZE_LARGE;
@@ -154,43 +156,43 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
         size = FIELD_BOAT_SIZE_HUGE;
         square = FIELD_SQUARE_HUGE_BOAT;
     }
-    printf("printing size: %d\n", size);
+    //printf("printing size: %d\n", size);
     int lastindex;
     int maxlen;
-    if (dir==FIELD_DIR_SOUTH){
-        lastindex=row + boat_type;
-        maxlen=FIELD_ROWS;
-    }else{
-        lastindex=col + boat_type;
-        maxlen=FIELD_COLS;
+    if (dir == FIELD_DIR_SOUTH) {
+        lastindex = row + boat_type;
+        maxlen = FIELD_ROWS;
+    } else {
+        lastindex = col + boat_type;
+        maxlen = FIELD_COLS;
     }
-    if ((row>=0) && (col>=0) && (row < FIELD_ROWS) && (col < FIELD_COLS) && (lastindex< maxlen)) {
-        printf("entering if statement\n");
+    if ((row >= 0) && (col >= 0) && (row < FIELD_ROWS) && (col < FIELD_COLS) && (lastindex < maxlen)) {
+        //printf("entering if statement\n");
         if (dir == FIELD_DIR_SOUTH) {
 
             int y = row;
-            for (y = row; y < (size+row); y++) {
+            for (y = row; y < (size + row); y++) {
                 if (own_field->grid[y][col] == FIELD_SQUARE_EMPTY) {
                     continue;
                 } else {
                     return STANDARD_ERROR;
                 }
             }
-            for (y = row; y < (size+col); y++) {
+            for (y = row; y < (size + col); y++) {
                 own_field->grid[y][col] = square;
             }
 
         } else if (dir == FIELD_DIR_EAST) {
-            printf("entering east\n");
+            //printf("entering east\n");
             int x = col;
-            for (x = col; x < (size+col); x++) {
+            for (x = col; x < (size + col); x++) {
                 if (own_field->grid[row][x] == FIELD_SQUARE_EMPTY) {
                     continue;
                 } else {
                     return STANDARD_ERROR;
                 }
             }
-            for (x = col; x < (size+col); x++) {
+            for (x = col; x < (size + col); x++) {
                 own_field->grid[row][x] = square;
             }
         }
@@ -265,16 +267,25 @@ SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
  * registered.
  */
 SquareStatus FieldUpdateKnowledge(Field *opp_field, const GuessData *own_guess) {
+    
     SquareStatus return_val = opp_field->grid[own_guess->row][own_guess->col];
-    opp_field->grid[own_guess->row][own_guess->col] = own_guess->result;
-    if (own_guess->result == RESULT_SMALL_BOAT_SUNK) {
+    
+    if (own_guess->result == RESULT_HIT) {
+        opp_field->grid[own_guess->row][own_guess->col] = FIELD_SQUARE_HIT;
+    } else if (own_guess->result == RESULT_MISS) {
+        opp_field->grid[own_guess->row][own_guess->col] = FIELD_SQUARE_MISS;
+    } else if (own_guess->result == RESULT_SMALL_BOAT_SUNK) {
         opp_field->smallBoatLives = 0;
+        opp_field->grid[own_guess->row][own_guess->col] = FIELD_SQUARE_HIT;
     } else if (own_guess->result == RESULT_MEDIUM_BOAT_SUNK) {
         opp_field->mediumBoatLives = 0;
+        opp_field->grid[own_guess->row][own_guess->col] = FIELD_SQUARE_HIT;
     } else if (own_guess->result == RESULT_LARGE_BOAT_SUNK) {
         opp_field->largeBoatLives = 0;
+        opp_field->grid[own_guess->row][own_guess->col] = FIELD_SQUARE_HIT;
     } else if (own_guess->result == RESULT_HUGE_BOAT_SUNK) {
         opp_field->hugeBoatLives = 0;
+        opp_field->grid[own_guess->row][own_guess->col] = FIELD_SQUARE_HIT;
     }
     return return_val;
 
@@ -319,15 +330,16 @@ uint8_t FieldAIPlaceAllBoats(Field *own_field) {
     int result;
     int smallplaced = FALSE;
     int mediumplaced = FALSE;
-        int largeplaced = FALSE;
-        int hugeplaced = FALSE;
+    int largeplaced = FALSE;
+    int hugeplaced = FALSE;
     while (boatsPlaced < 4) {
-        
+
         if (smallplaced == FALSE) {
             result = FieldAddBoat(own_field, rand() % 5, rand() % 9, rand() % 2, FIELD_BOAT_TYPE_SMALL);
             if (result == SUCCESS) {
                 boatsPlaced++;
                 smallplaced = TRUE;
+                own_field->smallBoatLives = FIELD_BOAT_SIZE_SMALL;
             }
         }
         if (mediumplaced == FALSE) {
@@ -335,6 +347,7 @@ uint8_t FieldAIPlaceAllBoats(Field *own_field) {
             if (result == SUCCESS) {
                 boatsPlaced++;
                 mediumplaced = TRUE;
+                own_field->mediumBoatLives = FIELD_BOAT_SIZE_MEDIUM;
             }
         }
         if (largeplaced == FALSE) {
@@ -342,6 +355,7 @@ uint8_t FieldAIPlaceAllBoats(Field *own_field) {
             if (result == SUCCESS) {
                 boatsPlaced++;
                 largeplaced = TRUE;
+                own_field->largeBoatLives = FIELD_BOAT_SIZE_LARGE;
             }
         }
         if (hugeplaced == FALSE) {
@@ -349,6 +363,7 @@ uint8_t FieldAIPlaceAllBoats(Field *own_field) {
             if (result == SUCCESS) {
                 boatsPlaced++;
                 hugeplaced = TRUE;
+                own_field->hugeBoatLives = FIELD_BOAT_SIZE_HUGE;
             }
         }
     }

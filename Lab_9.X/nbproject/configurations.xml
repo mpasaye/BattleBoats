@@ -25,22 +25,22 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Agent.c</itemPath>
-      <itemPath>AgentTest.c</itemPath>
       <itemPath>Ascii.c</itemPath>
       <itemPath>BOARD.c</itemPath>
       <itemPath>CircularBuffer.c</itemPath>
-      <itemPath>Field.c</itemPath>
       <itemPath>FieldOled.c</itemPath>
-      <itemPath>FieldTest.c</itemPath>
       <itemPath>Lab09_main.c</itemPath>
-      <itemPath>Message.c</itemPath>
-      <itemPath>MessageTest.c</itemPath>
-      <itemPath>Negotiation.c</itemPath>
-      <itemPath>NegotiationTest.c</itemPath>
       <itemPath>Oled.c</itemPath>
       <itemPath>OledDriver.c</itemPath>
       <itemPath>Uart1.c</itemPath>
+      <itemPath>AgentTest.c</itemPath>
+      <itemPath>MessageTest.c</itemPath>
+      <itemPath>NegotiationTest.c</itemPath>
+      <itemPath>FieldTest.c</itemPath>
+      <itemPath>Agent.c</itemPath>
+      <itemPath>Message.c</itemPath>
+      <itemPath>Negotiation.c</itemPath>
+      <itemPath>Field.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -73,8 +73,11 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibFileItem>Lab9SupportLib.a</linkerLibFileItem>
+<<<<<<< HEAD
             <linkerLibFileItem>Agent_correct.o</linkerLibFileItem>
             <linkerLibFileItem>Message_correct.o</linkerLibFileItem>
+=======
+>>>>>>> 386e51cb4863df89023fbf1d61c10f286fcc720b
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -97,6 +100,7 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+<<<<<<< HEAD
       <item path="Agent.c" ex="true" overriding="false">
         <C32>
         </C32>
@@ -129,6 +133,8 @@
         <C32Global>
         </C32Global>
       </item>
+=======
+>>>>>>> 386e51cb4863df89023fbf1d61c10f286fcc720b
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
@@ -201,7 +207,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="200"/>
+        <property key="heap-size" value=""/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -262,6 +268,7 @@
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
+<<<<<<< HEAD
       <item path="Field.c" ex="false" overriding="false">
         <C32>
         </C32>
@@ -360,6 +367,8 @@
         <C32Global>
         </C32Global>
       </item>
+=======
+>>>>>>> 386e51cb4863df89023fbf1d61c10f286fcc720b
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -395,7 +404,6 @@
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -430,6 +438,7 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
+<<<<<<< HEAD
       <Simulator>
         <property key="codecoverage.enabled" value="Disable"/>
         <property key="codecoverage.enableoutputtofile" value="false"/>
@@ -890,6 +899,8 @@
                   value=""/>
         <property key="warningmessagebreakoptions.warningmessages" value="holdstate"/>
       </Simulator>
+=======
+>>>>>>> 386e51cb4863df89023fbf1d61c10f286fcc720b
     </conf>
   </confs>
 </configurationDescriptor>

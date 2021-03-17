@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=Ascii.c BOARD.c CircularBuffer.c FieldOled.c Lab09_main.c Oled.c OledDriver.c Uart1.c AgentTest.c MessageTest.c NegotiationTest.c FieldTest.c Agent.c Message.c Negotiation.c Field.c
+SOURCEFILES_QUOTED_IF_SPACED=Ascii.c BOARD.c CircularBuffer.c Field.c FieldOled.c Message.c MessageTest.c Negotiation.c Oled.c OledDriver.c Uart1.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Ascii.o ${OBJECTDIR}/BOARD.o ${OBJECTDIR}/CircularBuffer.o ${OBJECTDIR}/FieldOled.o ${OBJECTDIR}/Lab09_main.o ${OBJECTDIR}/Oled.o ${OBJECTDIR}/OledDriver.o ${OBJECTDIR}/Uart1.o ${OBJECTDIR}/AgentTest.o ${OBJECTDIR}/MessageTest.o ${OBJECTDIR}/NegotiationTest.o ${OBJECTDIR}/FieldTest.o ${OBJECTDIR}/Agent.o ${OBJECTDIR}/Message.o ${OBJECTDIR}/Negotiation.o ${OBJECTDIR}/Field.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/Ascii.o.d ${OBJECTDIR}/BOARD.o.d ${OBJECTDIR}/CircularBuffer.o.d ${OBJECTDIR}/FieldOled.o.d ${OBJECTDIR}/Lab09_main.o.d ${OBJECTDIR}/Oled.o.d ${OBJECTDIR}/OledDriver.o.d ${OBJECTDIR}/Uart1.o.d ${OBJECTDIR}/AgentTest.o.d ${OBJECTDIR}/MessageTest.o.d ${OBJECTDIR}/NegotiationTest.o.d ${OBJECTDIR}/FieldTest.o.d ${OBJECTDIR}/Agent.o.d ${OBJECTDIR}/Message.o.d ${OBJECTDIR}/Negotiation.o.d ${OBJECTDIR}/Field.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/Ascii.o ${OBJECTDIR}/BOARD.o ${OBJECTDIR}/CircularBuffer.o ${OBJECTDIR}/Field.o ${OBJECTDIR}/FieldOled.o ${OBJECTDIR}/Message.o ${OBJECTDIR}/MessageTest.o ${OBJECTDIR}/Negotiation.o ${OBJECTDIR}/Oled.o ${OBJECTDIR}/OledDriver.o ${OBJECTDIR}/Uart1.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/Ascii.o.d ${OBJECTDIR}/BOARD.o.d ${OBJECTDIR}/CircularBuffer.o.d ${OBJECTDIR}/Field.o.d ${OBJECTDIR}/FieldOled.o.d ${OBJECTDIR}/Message.o.d ${OBJECTDIR}/MessageTest.o.d ${OBJECTDIR}/Negotiation.o.d ${OBJECTDIR}/Oled.o.d ${OBJECTDIR}/OledDriver.o.d ${OBJECTDIR}/Uart1.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/Ascii.o ${OBJECTDIR}/BOARD.o ${OBJECTDIR}/CircularBuffer.o ${OBJECTDIR}/FieldOled.o ${OBJECTDIR}/Lab09_main.o ${OBJECTDIR}/Oled.o ${OBJECTDIR}/OledDriver.o ${OBJECTDIR}/Uart1.o ${OBJECTDIR}/AgentTest.o ${OBJECTDIR}/MessageTest.o ${OBJECTDIR}/NegotiationTest.o ${OBJECTDIR}/FieldTest.o ${OBJECTDIR}/Agent.o ${OBJECTDIR}/Message.o ${OBJECTDIR}/Negotiation.o ${OBJECTDIR}/Field.o
+OBJECTFILES=${OBJECTDIR}/Ascii.o ${OBJECTDIR}/BOARD.o ${OBJECTDIR}/CircularBuffer.o ${OBJECTDIR}/Field.o ${OBJECTDIR}/FieldOled.o ${OBJECTDIR}/Message.o ${OBJECTDIR}/MessageTest.o ${OBJECTDIR}/Negotiation.o ${OBJECTDIR}/Oled.o ${OBJECTDIR}/OledDriver.o ${OBJECTDIR}/Uart1.o
 
 # Source Files
-SOURCEFILES=Ascii.c BOARD.c CircularBuffer.c FieldOled.c Lab09_main.c Oled.c OledDriver.c Uart1.c AgentTest.c MessageTest.c NegotiationTest.c FieldTest.c Agent.c Message.c Negotiation.c Field.c
+SOURCEFILES=Ascii.c BOARD.c CircularBuffer.c Field.c FieldOled.c Message.c MessageTest.c Negotiation.c Oled.c OledDriver.c Uart1.c
 
 
 
@@ -107,198 +107,138 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/Ascii.o: Ascii.c  .generated_files/8bf85eefa1f94864dd75bf6da6df4c2d25745f7d.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/Ascii.o: Ascii.c  .generated_files/8cefa792ffef4f2e80045e5f5d0d5f7f62331670.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Ascii.o.d 
 	@${RM} ${OBJECTDIR}/Ascii.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Ascii.o.d" -o ${OBJECTDIR}/Ascii.o Ascii.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/BOARD.o: BOARD.c  .generated_files/e2585dc2b6730c2a84fbd327b3c1be8f90e80b40.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/BOARD.o: BOARD.c  .generated_files/41472d04de89e4a2b8c87a56b4ddb164bc872626.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/BOARD.o.d 
 	@${RM} ${OBJECTDIR}/BOARD.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/BOARD.o.d" -o ${OBJECTDIR}/BOARD.o BOARD.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/CircularBuffer.o: CircularBuffer.c  .generated_files/c2c8cd5c3231c028aa5d0c3dc3055d38255e5409.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/CircularBuffer.o: CircularBuffer.c  .generated_files/3fd580c454851db55ecce633cb6697e1cd4ccd3e.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/CircularBuffer.o.d 
 	@${RM} ${OBJECTDIR}/CircularBuffer.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/CircularBuffer.o.d" -o ${OBJECTDIR}/CircularBuffer.o CircularBuffer.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/FieldOled.o: FieldOled.c  .generated_files/c0512e604665551e97e030ef65c0fd9405f8a821.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/FieldOled.o.d 
-	@${RM} ${OBJECTDIR}/FieldOled.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/FieldOled.o.d" -o ${OBJECTDIR}/FieldOled.o FieldOled.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Lab09_main.o: Lab09_main.c  .generated_files/8e3900bd8d4dc2c34aa9fa0e507aec5205dc48ba.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Lab09_main.o.d 
-	@${RM} ${OBJECTDIR}/Lab09_main.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Lab09_main.o.d" -o ${OBJECTDIR}/Lab09_main.o Lab09_main.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Oled.o: Oled.c  .generated_files/31e684dcb995c8e7305ebbc045ec8d95dbf80c01.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Oled.o.d 
-	@${RM} ${OBJECTDIR}/Oled.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Oled.o.d" -o ${OBJECTDIR}/Oled.o Oled.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/OledDriver.o: OledDriver.c  .generated_files/9a07b1b71c3c86d543383a0317efd338c1449d64.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/OledDriver.o.d 
-	@${RM} ${OBJECTDIR}/OledDriver.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/OledDriver.o.d" -o ${OBJECTDIR}/OledDriver.o OledDriver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Uart1.o: Uart1.c  .generated_files/e802ce670d679c46a084622b8ef50f9b11b2b3f.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Uart1.o.d 
-	@${RM} ${OBJECTDIR}/Uart1.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Uart1.o.d" -o ${OBJECTDIR}/Uart1.o Uart1.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/AgentTest.o: AgentTest.c  .generated_files/e78fb53fcd6cbaa1cd9dec0439e04075469fd622.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/AgentTest.o.d 
-	@${RM} ${OBJECTDIR}/AgentTest.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/AgentTest.o.d" -o ${OBJECTDIR}/AgentTest.o AgentTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/MessageTest.o: MessageTest.c  .generated_files/697484871768df65d4b2ed8a3be6de9663a8a079.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/MessageTest.o.d 
-	@${RM} ${OBJECTDIR}/MessageTest.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/MessageTest.o.d" -o ${OBJECTDIR}/MessageTest.o MessageTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/NegotiationTest.o: NegotiationTest.c  .generated_files/3482b4dd11552a75893d92587e0054ab833b2b0e.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/NegotiationTest.o.d 
-	@${RM} ${OBJECTDIR}/NegotiationTest.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/NegotiationTest.o.d" -o ${OBJECTDIR}/NegotiationTest.o NegotiationTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/FieldTest.o: FieldTest.c  .generated_files/7b3b2c52249aa2f41bc96a7dea8093a164550194.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/FieldTest.o.d 
-	@${RM} ${OBJECTDIR}/FieldTest.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/FieldTest.o.d" -o ${OBJECTDIR}/FieldTest.o FieldTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Agent.o: Agent.c  .generated_files/4b40834d6fb5f4001ede516d3cddf238c7bf72a7.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Agent.o.d 
-	@${RM} ${OBJECTDIR}/Agent.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Agent.o.d" -o ${OBJECTDIR}/Agent.o Agent.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Message.o: Message.c  .generated_files/1f8e225b613a02a0477cac0231b6fe3f2c58f26c.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Message.o.d 
-	@${RM} ${OBJECTDIR}/Message.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Message.o.d" -o ${OBJECTDIR}/Message.o Message.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Negotiation.o: Negotiation.c  .generated_files/2d695e95e6faa99bed10034e1cc160baff3035a0.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Negotiation.o.d 
-	@${RM} ${OBJECTDIR}/Negotiation.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Negotiation.o.d" -o ${OBJECTDIR}/Negotiation.o Negotiation.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Field.o: Field.c  .generated_files/d9fbb85f7684cd05341d8da24db9af2c3513bc96.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/Field.o: Field.c  .generated_files/4ae272a1e897d85064e421ebeb4a8559cff921ee.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Field.o.d 
 	@${RM} ${OBJECTDIR}/Field.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Field.o.d" -o ${OBJECTDIR}/Field.o Field.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
+${OBJECTDIR}/FieldOled.o: FieldOled.c  .generated_files/37e9b82d31506256bc35aeed614fbf781db3f896.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/FieldOled.o.d 
+	@${RM} ${OBJECTDIR}/FieldOled.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/FieldOled.o.d" -o ${OBJECTDIR}/FieldOled.o FieldOled.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/Message.o: Message.c  .generated_files/cb86a7f0d061a5a017709132b39582ce92dfeab5.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Message.o.d 
+	@${RM} ${OBJECTDIR}/Message.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Message.o.d" -o ${OBJECTDIR}/Message.o Message.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/MessageTest.o: MessageTest.c  .generated_files/5c92f76a4fc3d032f2adc174ad2f905f57d85bc9.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/MessageTest.o.d 
+	@${RM} ${OBJECTDIR}/MessageTest.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/MessageTest.o.d" -o ${OBJECTDIR}/MessageTest.o MessageTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/Negotiation.o: Negotiation.c  .generated_files/e53a90cfec03b3d56bd538571cea98d65f01c720.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Negotiation.o.d 
+	@${RM} ${OBJECTDIR}/Negotiation.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Negotiation.o.d" -o ${OBJECTDIR}/Negotiation.o Negotiation.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/Oled.o: Oled.c  .generated_files/f27861b47afc050295f6a5e1f3533ef7e63ca02b.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Oled.o.d 
+	@${RM} ${OBJECTDIR}/Oled.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Oled.o.d" -o ${OBJECTDIR}/Oled.o Oled.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/OledDriver.o: OledDriver.c  .generated_files/e62161d4f5bf59bcd8afe6c9eac013076e05b2b4.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/OledDriver.o.d 
+	@${RM} ${OBJECTDIR}/OledDriver.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/OledDriver.o.d" -o ${OBJECTDIR}/OledDriver.o OledDriver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/Uart1.o: Uart1.c  .generated_files/99a483d12df45a038d4313fa5446798d691952a8.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Uart1.o.d 
+	@${RM} ${OBJECTDIR}/Uart1.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Uart1.o.d" -o ${OBJECTDIR}/Uart1.o Uart1.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
 else
-${OBJECTDIR}/Ascii.o: Ascii.c  .generated_files/fcb2c4ac76df36ebfd71b30e442af3737e532665.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/Ascii.o: Ascii.c  .generated_files/a59b0be1f86eed56e02f1225259b8c38a34d8a39.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Ascii.o.d 
 	@${RM} ${OBJECTDIR}/Ascii.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Ascii.o.d" -o ${OBJECTDIR}/Ascii.o Ascii.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/BOARD.o: BOARD.c  .generated_files/8db08396dca018bd0172b7dff3be78de7b2e084c.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/BOARD.o: BOARD.c  .generated_files/de8acad20dab47999ea5e12276bf2907751e7750.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/BOARD.o.d 
 	@${RM} ${OBJECTDIR}/BOARD.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/BOARD.o.d" -o ${OBJECTDIR}/BOARD.o BOARD.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/CircularBuffer.o: CircularBuffer.c  .generated_files/721bc27ad8c650fc73561a03f67b746ec3659192.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/CircularBuffer.o: CircularBuffer.c  .generated_files/4a505449fc5ddd72d1c9df8cd1b551f8ff3caf7.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/CircularBuffer.o.d 
 	@${RM} ${OBJECTDIR}/CircularBuffer.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/CircularBuffer.o.d" -o ${OBJECTDIR}/CircularBuffer.o CircularBuffer.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/FieldOled.o: FieldOled.c  .generated_files/8e5ee1a9fe9539b9b1d5e90e0d05b27ad651b65f.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/Field.o: Field.c  .generated_files/61ea385d37d7910b4028ff7f2d47dd4db0a4f38a.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Field.o.d 
+	@${RM} ${OBJECTDIR}/Field.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Field.o.d" -o ${OBJECTDIR}/Field.o Field.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/FieldOled.o: FieldOled.c  .generated_files/b986c9ce6fef2f2316d0a520c15cc6a7195898ce.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/FieldOled.o.d 
 	@${RM} ${OBJECTDIR}/FieldOled.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/FieldOled.o.d" -o ${OBJECTDIR}/FieldOled.o FieldOled.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/Lab09_main.o: Lab09_main.c  .generated_files/f91d9c263ead68d6f86b44d2a8098ccdb772ea38.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Lab09_main.o.d 
-	@${RM} ${OBJECTDIR}/Lab09_main.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Lab09_main.o.d" -o ${OBJECTDIR}/Lab09_main.o Lab09_main.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Oled.o: Oled.c  .generated_files/aef0834812c1fd00db114fd3ee4511b73a232bc7.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Oled.o.d 
-	@${RM} ${OBJECTDIR}/Oled.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Oled.o.d" -o ${OBJECTDIR}/Oled.o Oled.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/OledDriver.o: OledDriver.c  .generated_files/36b073a3aacbfd7b18d6e80823fb2bc336b28686.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/OledDriver.o.d 
-	@${RM} ${OBJECTDIR}/OledDriver.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/OledDriver.o.d" -o ${OBJECTDIR}/OledDriver.o OledDriver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Uart1.o: Uart1.c  .generated_files/5a7c873a480b32d1a029d0ca2ea654e65e4dff5.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Uart1.o.d 
-	@${RM} ${OBJECTDIR}/Uart1.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Uart1.o.d" -o ${OBJECTDIR}/Uart1.o Uart1.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/AgentTest.o: AgentTest.c  .generated_files/65ab459a4a80c51f00757684b17e0cc7620d238f.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/AgentTest.o.d 
-	@${RM} ${OBJECTDIR}/AgentTest.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/AgentTest.o.d" -o ${OBJECTDIR}/AgentTest.o AgentTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/MessageTest.o: MessageTest.c  .generated_files/afd591547c1102f531baf9806e19cf440c6d0a94.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/MessageTest.o.d 
-	@${RM} ${OBJECTDIR}/MessageTest.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/MessageTest.o.d" -o ${OBJECTDIR}/MessageTest.o MessageTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/NegotiationTest.o: NegotiationTest.c  .generated_files/93d27980303fd07a6116f2beb4bdcb5f2c27d4b0.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/NegotiationTest.o.d 
-	@${RM} ${OBJECTDIR}/NegotiationTest.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/NegotiationTest.o.d" -o ${OBJECTDIR}/NegotiationTest.o NegotiationTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/FieldTest.o: FieldTest.c  .generated_files/c504ac6dbe20ba6da47b06e051052dffc548d026.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/FieldTest.o.d 
-	@${RM} ${OBJECTDIR}/FieldTest.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/FieldTest.o.d" -o ${OBJECTDIR}/FieldTest.o FieldTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Agent.o: Agent.c  .generated_files/e6b502f449d3594ca2f544e289299f311381cfc1.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Agent.o.d 
-	@${RM} ${OBJECTDIR}/Agent.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Agent.o.d" -o ${OBJECTDIR}/Agent.o Agent.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/Message.o: Message.c  .generated_files/fd2d6535b908371998c8429e3c59e76a8447ebc2.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/Message.o: Message.c  .generated_files/e0b70b95cfe12a1b3eedade7150b1f2c2015a366.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Message.o.d 
 	@${RM} ${OBJECTDIR}/Message.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Message.o.d" -o ${OBJECTDIR}/Message.o Message.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/Negotiation.o: Negotiation.c  .generated_files/bef43f5a2a85eada113c4b48e61ee9dd0a381399.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/MessageTest.o: MessageTest.c  .generated_files/d3d7961d2125184b555da5be28607583dbf6afd6.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/MessageTest.o.d 
+	@${RM} ${OBJECTDIR}/MessageTest.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/MessageTest.o.d" -o ${OBJECTDIR}/MessageTest.o MessageTest.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/Negotiation.o: Negotiation.c  .generated_files/cda542b3b6f98b83b096fda46773c7265b864a02.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/Negotiation.o.d 
 	@${RM} ${OBJECTDIR}/Negotiation.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Negotiation.o.d" -o ${OBJECTDIR}/Negotiation.o Negotiation.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/Field.o: Field.c  .generated_files/a259462104dbb9dd805c183d3f9292df6c1e1cb0.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+${OBJECTDIR}/Oled.o: Oled.c  .generated_files/18b2111b71953cc0a55b3aba8e49782b694d29.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Field.o.d 
-	@${RM} ${OBJECTDIR}/Field.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Field.o.d" -o ${OBJECTDIR}/Field.o Field.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	@${RM} ${OBJECTDIR}/Oled.o.d 
+	@${RM} ${OBJECTDIR}/Oled.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Oled.o.d" -o ${OBJECTDIR}/Oled.o Oled.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/OledDriver.o: OledDriver.c  .generated_files/2c1044443b1b4a0fa7ec5825d59c0a937c987e26.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/OledDriver.o.d 
+	@${RM} ${OBJECTDIR}/OledDriver.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/OledDriver.o.d" -o ${OBJECTDIR}/OledDriver.o OledDriver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/Uart1.o: Uart1.c  .generated_files/7c3d7c8ef486de515d682825159bf53097899048.flag .generated_files/9c38dd73fa47c8727ca672a3ac38932765b77050.flag
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Uart1.o.d 
+	@${RM} ${OBJECTDIR}/Uart1.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -Wall -MP -MMD -MF "${OBJECTDIR}/Uart1.o.d" -o ${OBJECTDIR}/Uart1.o Uart1.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 endif
 
@@ -311,14 +251,14 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  Lab9SupportLib.a  
+dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  Lab9SupportLib.a Agent_correct.o  
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) -g -mdebugger -D__MPLAB_DEBUGGER_PK3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}    Lab9SupportLib.a      -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)   -mreserve=data@0x0:0x1FC -mreserve=boot@0x1FC02000:0x1FC02FEF -mreserve=boot@0x1FC02000:0x1FC024FF  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,-D=__DEBUG_D,--defsym=__MPLAB_DEBUGGER_PK3=1,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -mdfp="${DFP_DIR}"
+	${MP_CC} $(MP_EXTRA_LD_PRE) -g -mdebugger -D__MPLAB_DEBUGGER_PK3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}    Lab9SupportLib.a Agent_correct.o      -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)   -mreserve=data@0x0:0x1FC -mreserve=boot@0x1FC02000:0x1FC02FEF -mreserve=boot@0x1FC02000:0x1FC024FF  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,-D=__DEBUG_D,--defsym=__MPLAB_DEBUGGER_PK3=1,--defsym=_min_heap_size=200,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -mdfp="${DFP_DIR}"
 	
 else
-dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  Lab9SupportLib.a 
+dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  Lab9SupportLib.a Agent_correct.o 
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}    Lab9SupportLib.a      -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--no-code-in-dinit,--no-dinit-in-serial-mem,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -mdfp="${DFP_DIR}"
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}    Lab9SupportLib.a Agent_correct.o      -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=_min_heap_size=200,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -mdfp="${DFP_DIR}"
 	${MP_CC_DIR}\\xc32-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/Lab_9.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} 
 endif
 

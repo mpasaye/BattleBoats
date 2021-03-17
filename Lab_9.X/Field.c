@@ -163,7 +163,7 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
     } else if (boat_type == FIELD_BOAT_TYPE_HUGE) {
         size = FIELD_BOAT_SIZE_HUGE;
         square = FIELD_SQUARE_HUGE_BOAT;
-        own_field->largeBoatLives = FIELD_BOAT_SIZE_HUGE;
+        own_field->hugeBoatLives = FIELD_BOAT_SIZE_HUGE;
     }
     
     int lastindex;

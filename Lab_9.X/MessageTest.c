@@ -83,8 +83,6 @@ int main(){
     //Message_ParseMessage(const char* payload,const char* checksum_string, BB_Event * message_event);
     testspassed=0;
     totaltests=0;
-    //Testing Message_ParseMessage
-    //char* payload;
     const char*  checksum_string;
     int result1;
     BB_Event message_event={};
@@ -141,6 +139,24 @@ int main(){
     
     printf("%d/%d TESTS PASSED\n", testspassed, totaltests);
     
+    /**************************************************************************/
+    //TESTING MESSAGE ENCODE
+    //int Message_Encode(char *message_string, Message message_to_encode);
+    int result2;
+    Message message_to_encode={};
+    char *message_string="$SHO,2,9*5F\n";
+    printf("Testing Message_Encode:\n");
+    
+    //payload shouldnt match any template
+    checksum_string="26";
+    result2=Message_Encode(message_string, message_to_encode);
+    if (result2==SUCCESS){
+        printf("TEST 1 PASSED\n");
+        testspassed++;
+    }else{
+        printf("TEST 1 FAILED\n");
+    }
+    totaltests++;
     return 0;
     BOARD_End();
 }

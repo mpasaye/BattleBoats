@@ -9,6 +9,7 @@
 #include "Negotiation.h"
 #include "BattleBoats.h"
 #include "Message.h"
+
 int main() {
     BOARD_Init();
     printf("Welcome to NABARRAZ'S AgentTest.  Compiled on %s %s\n", __DATE__, __TIME__);
@@ -99,6 +100,7 @@ int main() {
     } else {
         printf("TEST 3 FAILED\n");
     }
+
     /**
      * AgentRun evolves the Agent state machine in response to an event.
      * 
@@ -115,10 +117,10 @@ int main() {
     {
         AgentInit();
         printf("Testing AgentRun:\n");
-        BB_Event event1 = {BB_EVENT_START_BUTTON,2};
-        printf("printing");
+        BB_Event event1 = {BB_EVENT_START_BUTTON, 2};
+
         Message message1 = AgentRun(event1);
-        printf("print something\n");
+
         if (message1.type == MESSAGE_ACC) {
             printf("TEST 1 PASSED\n");
         } else {

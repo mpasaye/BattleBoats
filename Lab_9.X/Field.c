@@ -155,15 +155,15 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
     } else if (boat_type == FIELD_BOAT_TYPE_MEDIUM) {
         size = FIELD_BOAT_SIZE_MEDIUM;
         square = FIELD_SQUARE_MEDIUM_BOAT;
-        own_field->smallBoatLives = FIELD_BOAT_SIZE_MEDIUM;
+        own_field->mediumBoatLives = FIELD_BOAT_SIZE_MEDIUM;
     } else if (boat_type == FIELD_BOAT_TYPE_LARGE) {
         size = FIELD_BOAT_SIZE_LARGE;
         square = FIELD_SQUARE_LARGE_BOAT;
-        own_field->smallBoatLives = FIELD_BOAT_SIZE_LARGE;
+        own_field->largeBoatLives = FIELD_BOAT_SIZE_LARGE;
     } else if (boat_type == FIELD_BOAT_TYPE_HUGE) {
         size = FIELD_BOAT_SIZE_HUGE;
         square = FIELD_SQUARE_HUGE_BOAT;
-        own_field->smallBoatLives = FIELD_BOAT_SIZE_HUGE;
+        own_field->largeBoatLives = FIELD_BOAT_SIZE_HUGE;
     }
     
     int lastindex;

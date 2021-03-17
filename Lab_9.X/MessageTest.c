@@ -7,7 +7,7 @@
 
 int main(){
     BOARD_Init();
-    
+    printf("Welcome to NABARRAZ'S MessageTest.  Compiled on %s %s\n", __DATE__, __TIME__);
     int testspassed=0;
     int totaltests=0;
     //Testing messagecalculatechecksum
@@ -141,23 +141,6 @@ int main(){
     
     /**************************************************************************/
     //TESTING MESSAGE ENCODE
-    //int Message_Encode(char *message_string, Message message_to_encode);
-    /**
- * Encodes the coordinate data for a guess into the string `message`. This string must be big
- * enough to contain all of the necessary data. The format is specified in PAYLOAD_TEMPLATE_*,
- * which is then wrapped within the message as defined by MESSAGE_TEMPLATE. 
- * 
- * The final length of this
- * message is then returned. There is no failure mode for this function as there is no checking
- * for NULL pointers.
- * 
- * @param message            The character array used for storing the output. 
- *                              Must be long enough to store the entire string,
- *                              see MESSAGE_MAX_LEN.
- * @param message_to_encode  A message to encode
- * @return                   The length of the string stored into 'message_string'.
-                             Return 0 if message type is MESSAGE_NONE.
- */
     testspassed=0;
     totaltests=0;
     int result2;
@@ -201,28 +184,9 @@ int main(){
     
     printf("%d/%d TESTS PASSED\n", testspassed, totaltests);
     
-    /**
- * Message_Decode reads one character at a time.  If it detects a full NMEA message,
- * it translates that message into a BB_Event struct, which can be passed to other 
- * services.
- * 
- * @param char_in - The next character in the NMEA0183 message to be decoded.
- * @param decoded_message - a pointer to a message struct, used to "return" a message
- *                          if char_in is the last character of a valid message, 
- *                              then decoded_message
- *                              should have the appropriate message type.
- *                          if char_in is the last character of an invalid message,
- *                              then decoded_message should have an ERROR type.
- *                          otherwise, it should have type NO_EVENT.
- * @return SUCCESS if no error was detected
- *         STANDARD_ERROR if an error was detected
- * 
- * note that ANY call to Message_Decode may modify decoded_message.
- */
-    //int Message_Decode(unsigned char char_in, BB_Event * decoded_message_event);
-    
     testspassed=0;
     totaltests=0;
+    /**************************************************************************/
     //Testing MessageDecode
     
     printf("Testing Message_CalculateChecksum:\n");
@@ -230,8 +194,6 @@ int main(){
     unsigned char char_in;
     BB_EventType expected_type;
     uint16_t expected_param0;
-    //uint16_t expected_param1;
-    //uint16_t expected_param2;
     
     //$CHA,10*67\n
     char_in='$';

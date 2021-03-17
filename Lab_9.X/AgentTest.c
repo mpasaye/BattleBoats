@@ -10,8 +10,12 @@
 #include "BattleBoats.h"
 #include "Message.h"
 
+<<<<<<< HEAD
 int main()
 {
+=======
+int main() {
+>>>>>>> f312fb4302ef29c47205c81f85e53239e8816056
     BOARD_Init();
     printf("Welcome to NABARRAZ'S AgentTest.  Compiled on %s %s\n", __DATE__, __TIME__);
     /**************************************************************************/
@@ -113,6 +117,7 @@ int main()
         }
         printf("%d/%d TESTS PASSED\n", testspassed, totaltests);
     }
+
     /**
      * AgentRun evolves the Agent state machine in response to an event.
      * 
@@ -130,11 +135,19 @@ int main()
         AgentInit();
         int testspassed = 0, totaltests = 3;
         printf("Testing AgentRun:\n");
+<<<<<<< HEAD
         BB_Event event = {BB_EVENT_START_BUTTON};
         Message message = AgentRun(event);
         
         if (message.type == MESSAGE_CHA) {
             testspassed++;
+=======
+        BB_Event event1 = {BB_EVENT_START_BUTTON, 2};
+
+        Message message1 = AgentRun(event1);
+
+        if (message1.type == MESSAGE_ACC) {
+>>>>>>> f312fb4302ef29c47205c81f85e53239e8816056
             printf("TEST 1 PASSED\n");
         } else {
             printf("TEST 1 FAILED\n");

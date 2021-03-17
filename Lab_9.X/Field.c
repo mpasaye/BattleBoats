@@ -165,18 +165,18 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
         square = FIELD_SQUARE_HUGE_BOAT;
         own_field->smallBoatLives = FIELD_BOAT_SIZE_HUGE;
     }
-    //printf("printing size: %d\n", size);
+    
     int lastindex;
     int maxlen;
     if (dir == FIELD_DIR_SOUTH) {
-        lastindex = row + boat_type;
+        lastindex = row + size;
         maxlen = FIELD_ROWS;
     } else {
-        lastindex = col + boat_type;
+        lastindex = col + size;
         maxlen = FIELD_COLS;
     }
     if ((row >= 0) && (col >= 0) && (row < FIELD_ROWS) && (col < FIELD_COLS) && (lastindex < maxlen)) {
-        //printf("entering if statement\n");
+       
         if (dir == FIELD_DIR_SOUTH) {
 
             int y = row;
@@ -192,7 +192,7 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
             }
 
         } else if (dir == FIELD_DIR_EAST) {
-            //printf("entering east\n");
+            
             int x = col;
             for (x = col; x < (size + col); x++) {
                 if (own_field->grid[row][x] == FIELD_SQUARE_EMPTY) {

@@ -10,7 +10,8 @@
  * @param p The data to initialize the entire field to, should be a member of enum
  *                     SquareStatus.
  */
-void FieldPrint_UART(Field *own_field, Field * opp_field) {
+void FieldPrint_UART(Field *own_field, Field * opp_field)
+{
     int row = 0;
     int col = 0;
     printf("printing my field\n");
@@ -46,7 +47,8 @@ void FieldPrint_UART(Field *own_field, Field * opp_field) {
  * @param own_field     //A field representing the agents own ships
  * @param opp_field     //A field representing the opponent's ships
  */
-void FieldInit(Field *own_field, Field * opp_field) {
+void FieldInit(Field *own_field, Field * opp_field)
+{
 
     own_field->smallBoatLives = 0;
     own_field->mediumBoatLives = 0;
@@ -75,7 +77,8 @@ void FieldInit(Field *own_field, Field * opp_field) {
  * @return  FIELD_SQUARE_INVALID if row and col are not valid field locations
  *          Otherwise, return the status of the referenced square 
  */
-SquareStatus FieldGetSquareStatus(const Field *f, uint8_t row, uint8_t col) {
+SquareStatus FieldGetSquareStatus(const Field *f, uint8_t row, uint8_t col)
+{
     if (row < FIELD_ROWS && col < FIELD_COLS) {
         return f->grid[row][col];
     }
@@ -93,7 +96,8 @@ SquareStatus FieldGetSquareStatus(const Field *f, uint8_t row, uint8_t col) {
  * @param p The new value of the field location
  * @return The old value at that field location
  */
-SquareStatus FieldSetSquareStatus(Field *f, uint8_t row, uint8_t col, SquareStatus p) {
+SquareStatus FieldSetSquareStatus(Field *f, uint8_t row, uint8_t col, SquareStatus p)
+{
     int return_val = f->grid[row][col];
     f->grid[row][col] = p;
     return return_val;
@@ -140,7 +144,8 @@ SquareStatus FieldSetSquareStatus(Field *f, uint8_t row, uint8_t col, SquareStat
  * SquareStatus enum.
  * @return SUCCESS for success, STANDARD_ERROR for failure
  */
-uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection dir, BoatType boat_type) {
+uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection dir, BoatType boat_type)
+{
     int size;
     int square;
     if (boat_type == FIELD_BOAT_TYPE_SMALL) {
@@ -216,9 +221,10 @@ uint8_t FieldAddBoat(Field *own_field, uint8_t row, uint8_t col, BoatDirection d
  *               output.  The result can be a RESULT_HIT, RESULT_MISS, or RESULT_***_SUNK.
  * @return The data that was stored at the field position indicated by gData before this attack.
  */
-SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
+SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess)
+{
     SquareStatus return_val = own_field->grid[opp_guess->row][opp_guess->col];
-    
+
     if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_EMPTY) {
         own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_MISS;
         opp_guess->result = RESULT_MISS;
@@ -230,7 +236,7 @@ SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
         } else {
             opp_guess->result = RESULT_SMALL_BOAT_SUNK;
         }
-        
+
     } else if (own_field->grid[opp_guess->row][opp_guess->col] == FIELD_SQUARE_MEDIUM_BOAT) {
         own_field->grid[opp_guess->row][opp_guess->col] = FIELD_SQUARE_HIT;
         own_field->mediumBoatLives--;
@@ -272,7 +278,8 @@ SquareStatus FieldRegisterEnemyAttack(Field *own_field, GuessData *opp_guess) {
  * @return The previous value of that coordinate position in the field before the hit/miss was
  * registered.
  */
-SquareStatus FieldUpdateKnowledge(Field *opp_field, const GuessData *own_guess) {
+SquareStatus FieldUpdateKnowledge(Field *opp_field, const GuessData *own_guess)
+{
 
     SquareStatus return_val = opp_field->grid[own_guess->row][own_guess->col];
 
@@ -305,7 +312,8 @@ SquareStatus FieldUpdateKnowledge(Field *opp_field, const GuessData *own_guess) 
  * @param f The field to grab data from.
  * @return A 4-bit value with each bit corresponding to whether each ship is alive or not.
  */
-uint8_t FieldGetBoatStates(const Field *f) {
+uint8_t FieldGetBoatStates(const Field *f)
+{
     uint8_t result = 0;
     if (f->smallBoatLives > 0) {
         result += FIELD_BOAT_STATUS_SMALL;
@@ -330,7 +338,8 @@ uint8_t FieldGetBoatStates(const Field *f) {
  * 
  * This function should never fail when passed a properly initialized field!
  */
-uint8_t FieldAIPlaceAllBoats(Field *own_field) {
+uint8_t FieldAIPlaceAllBoats(Field *own_field)
+{
 
     int boatsPlaced = 0;
     int result;
@@ -388,7 +397,8 @@ uint8_t FieldAIPlaceAllBoats(Field *own_field) {
  * @return a GuessData struct whose row and col parameters are the coordinates of the guess.  The 
  *           result parameter is irrelevant.
  */
-GuessData FieldAIDecideGuess(const Field *opp_field) {
+GuessData FieldAIDecideGuess(const Field *opp_field)
+{
     int undecided = TRUE;
     int col;
     int row;
